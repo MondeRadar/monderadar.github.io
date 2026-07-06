@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>籌碼週報｜MONDE RADAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root{--bg:#080d1c;--panel:#11182c;--panel2:#172033;--gold:#ffd166;--text:#f8fafc;--muted:#cbd5e1;--line:rgba(255,209,102,.18);}
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:"Microsoft JhengHei",Arial,sans-serif;background:radial-gradient(circle at top,#18213a 0,#080d1c 58%);color:var(--text);}
+    .wrap{max-width:1120px;margin:auto;padding:36px 20px 28px;}
+    .site-brand{text-align:center;margin-bottom:22px;}
+    .site-logo{width:clamp(120px,22vw,180px);height:auto;display:block;margin:0 auto 16px;}
+    .site-brand-title{margin:0;font-size:42px;letter-spacing:.08em;color:#fff;font-weight:900;}
+    .site-brand-name{margin:6px 0 0;color:var(--gold);font-size:20px;font-weight:800;letter-spacing:.12em;}
+    .site-brand-tagline{margin:8px 0 0;color:#dbeafe;font-size:18px;}
+    .nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 26px;}
+    .nav a{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#e5e7eb;text-decoration:none;font-weight:700;}
+    .nav a:hover{background:rgba(255,209,102,.18);color:var(--gold);}
+    h1{text-align:center;font-size:clamp(32px,6vw,52px);margin:10px 0;}
+    h2{color:var(--gold);font-size:22px;margin:0 0 18px;}
+    h3{margin:14px 0 8px;color:#e0f2fe;}
+    .hero{padding:30px;border-radius:24px;background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(56,189,248,.10));border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.28);margin:18px 0 24px;}
+    .hero p{font-size:18px;line-height:1.9;color:#e5e7eb;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
+    .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:18px;padding:24px;margin:20px 0;line-height:1.8;box-shadow:0 8px 24px rgba(0,0,0,.24);}
+    .mini-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px;min-height:132px;}
+    .mini-card .label{color:var(--muted);font-size:14px;}
+    .mini-card .value{color:var(--gold);font-size:26px;font-weight:900;margin-top:8px;}
+    .metric{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid rgba(255,255,255,.08);padding:8px 0;}
+    .metric span:first-child{color:#dbeafe;}
+    .metric span:last-child{color:var(--gold);font-weight:700;text-align:right;}
+    .temp-bar{height:18px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;margin:14px 0;}
+    .temp-fill{height:100%;background:linear-gradient(90deg,#38bdf8,#ffd166);border-radius:999px;}
+    .temperature-score{font-size:44px;font-weight:900;color:var(--gold);}
+    .quick-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+    .quick-actions .btn{display:block;text-align:center;margin:0;}
+    .update-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+    .update-item{padding:14px;border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);}
+    .update-item strong{display:block;color:var(--gold);font-size:20px;}
+    ul{padding-left:22px;}
+    a{color:var(--gold);}
+    .btn{display:inline-block;margin:8px 8px 0 0;padding:12px 20px;border-radius:999px;background:var(--gold);color:#111;text-decoration:none;font-weight:bold;}
+    .note{color:var(--muted);font-size:14px;}
+    .footer{margin-top:34px;padding:22px;border-top:1px solid rgba(255,255,255,.1);color:var(--muted);text-align:center;font-size:14px;}
+    @media (max-width:760px){
+      .wrap{padding:24px 14px;}
+      .site-brand-title{font-size:34px;}
+      .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+      .quick-actions,.grid-4{grid-template-columns:1fr;}
+      .metric{display:block;}
+      .metric span{display:block;text-align:left!important;}
+      .card{padding:18px;margin:14px 0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <header class="site-brand">
+      <img class="site-logo" src="assets/logo.png" alt="MONDE RADAR Logo">
+      <div class="site-brand-title">孟德雷達</div>
+      <div class="site-brand-name">MONDE RADAR</div>
+      <p class="site-brand-tagline">掌握市場脈動</p>
+    </header>
+    
+    <nav class="nav">
+      <a href="index.html">首頁</a>
+      <a href="today.html">台股</a>
+      <a href="us.html">美股</a>
+      <a href="daytrade.html">當沖</a>
+      <a href="weekly.html">籌碼週報</a>
+      <a href="weekly_archive.html">歷史週報</a>
+      <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+    
+    <section class="hero">
+      <h1>籌碼週報</h1>
+      <p>更新日期：2026/07/03</p>
+      <p>本週市場雖有反彈，但外資現貨與期貨態度仍需觀察是否持續改善。</p>
+    </section>
+    <div class="grid">
+      <div class="card"><h2>本週 AI 解盤</h2><p>本週市場雖有反彈，但外資現貨與期貨態度仍需觀察是否持續改善。</p></div>
+      <div class="card"><h2>AI 下週展望</h2><p>下週觀察重點為外資期貨是否持續回補，以及強勢族群能否擴散。</p></div>
+    </div>
+    <div class="card"><h2>最近10日市場溫度</h2><ul><li>2026-06-23：29 分</li>
+<li>2026-06-24：47 分</li>
+<li>2026-06-25：63 分</li>
+<li>2026-06-26：63 分</li>
+<li>2026-06-29：63 分</li>
+<li>2026-06-30：63 分</li>
+<li>2026-07-01：63 分</li>
+<li>2026-07-02：47 分</li>
+<li>2026-07-03：63 分</li>
+<li>2026-07-06：47 分</li></ul></div>
+    <div class="grid">
+      <div class="card"><h2>外資</h2><p>外資近5日期貨買賣超仍偏空，代表中期資金尚未完全回流。</p></div>
+      <div class="card"><h2>十大交易人</h2><p>十大交易人與特定法人未同步轉弱，下週仍有族群輪動空間。</p></div>
+      <div class="card"><h2>Put/Call Ratio</h2><p>PCR 5日趨勢為下降，需留意情緒是否過熱。</p></div>
+    </div>
+    
+    <div class="card"><h2>籌碼趨勢</h2>
+      <p><strong>外資總未平倉：</strong>-79,611口<br>
+      <strong>今日買賣超：</strong>+60口<br>
+      連續加碼 2 天<br>
+      近5日買賣超合計：-4,953口</p>
+      <p><strong>自營商總未平倉：</strong>+892口<br>
+      <strong>今日買賣超：</strong>-110口<br>
+      連續減碼 2 天<br>
+      近5日買賣超合計：+119口</p>
+      <p><strong>十大交易人：</strong>+513口<br>
+      近5日變化：+766口</p>
+      <p><strong>十大特定法人：</strong>+641口<br>
+      近5日變化：+2,445口</p>
+      <p><strong>Put/Call Ratio：</strong>122.22%<br>
+      5日趨勢：下降<br>
+      10日趨勢：偏空</p>
+    </div>
+    
+    <a class="btn" href="weekly_archive.html">查看歷史週報</a>
+    
+    <footer class="footer">
+      <div>Version：V1.1 Stable</div>
+      <div>Last Update：2026/07/06</div>
+      <div>GitHub Pages｜Copyright：Mengde Radar</div>
+    </footer>
+  </div>
+</body>
+</html>
