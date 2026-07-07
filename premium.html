@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Premium｜MONDE RADAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root{--bg:#080d1c;--panel:#11182c;--panel2:#172033;--gold:#ffd166;--text:#f8fafc;--muted:#cbd5e1;--line:rgba(255,209,102,.18);}
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:"Microsoft JhengHei",Arial,sans-serif;background:radial-gradient(circle at top,#18213a 0,#080d1c 58%);color:var(--text);}
+    .wrap{max-width:1120px;margin:auto;padding:36px 20px 28px;}
+    .site-brand{text-align:center;margin-bottom:22px;}
+    .site-logo{width:clamp(120px,22vw,180px);height:auto;display:block;margin:0 auto 16px;}
+    .site-brand-title{margin:0;font-size:42px;letter-spacing:.08em;color:#fff;font-weight:900;}
+    .site-brand-name{margin:6px 0 0;color:var(--gold);font-size:20px;font-weight:800;letter-spacing:.12em;}
+    .site-brand-tagline{margin:8px 0 0;color:#dbeafe;font-size:18px;}
+    .nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 26px;}
+    .nav a{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#e5e7eb;text-decoration:none;font-weight:700;}
+    .nav a:hover{background:rgba(255,209,102,.18);color:var(--gold);}
+    h1{text-align:center;font-size:clamp(32px,6vw,52px);margin:10px 0;}
+    h2{color:var(--gold);font-size:22px;margin:0 0 18px;}
+    h3{margin:14px 0 8px;color:#e0f2fe;}
+    .hero{padding:30px;border-radius:24px;background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(56,189,248,.10));border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.28);margin:18px 0 24px;}
+    .hero p{font-size:18px;line-height:1.9;color:#e5e7eb;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
+    .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:18px;padding:24px;margin:20px 0;line-height:1.8;box-shadow:0 8px 24px rgba(0,0,0,.24);}
+    .mini-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px;min-height:132px;}
+    .mini-card .label{color:var(--muted);font-size:14px;}
+    .mini-card .value{color:var(--gold);font-size:26px;font-weight:900;margin-top:8px;}
+    .metric{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid rgba(255,255,255,.08);padding:8px 0;}
+    .metric span:first-child{color:#dbeafe;}
+    .metric span:last-child{color:var(--gold);font-weight:700;text-align:right;}
+    .temp-bar{height:18px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;margin:14px 0;}
+    .temp-fill{height:100%;background:linear-gradient(90deg,#38bdf8,#ffd166);border-radius:999px;}
+    .temperature-score{font-size:44px;font-weight:900;color:var(--gold);}
+    .quick-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+    .quick-actions .btn{display:block;text-align:center;margin:0;}
+    .update-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+    .update-item{padding:14px;border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);}
+    .update-item strong{display:block;color:var(--gold);font-size:20px;}
+    ul{padding-left:22px;}
+    a{color:var(--gold);}
+    .btn{display:inline-block;margin:8px 8px 0 0;padding:12px 20px;border-radius:999px;background:var(--gold);color:#111;text-decoration:none;font-weight:bold;}
+    .note{color:var(--muted);font-size:14px;}
+    .footer{margin-top:34px;padding:22px;border-top:1px solid rgba(255,255,255,.1);color:var(--muted);text-align:center;font-size:14px;}
+    @media (max-width:760px){
+      .wrap{padding:24px 14px;}
+      .site-brand-title{font-size:34px;}
+      .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+      .quick-actions,.grid-4{grid-template-columns:1fr;}
+      .metric{display:block;}
+      .metric span{display:block;text-align:left!important;}
+      .card{padding:18px;margin:14px 0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <header class="site-brand">
+      <img class="site-logo" src="assets/logo.png" alt="MONDE RADAR Logo">
+      <div class="site-brand-title">孟德雷達</div>
+      <div class="site-brand-name">MONDE RADAR</div>
+      <p class="site-brand-tagline">掌握市場脈動</p>
+    </header>
+    
+    <nav class="nav">
+      <a href="index.html">首頁</a>
+      <a href="today.html">台股</a>
+      <a href="us.html">美股</a>
+      <a href="daytrade.html">當沖</a>
+      <a href="weekly.html">籌碼週報</a>
+      <a href="weekly_archive.html">歷史週報</a>
+      <a href="premium.html">Premium</a>
+      <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+    
+    <section class="hero">
+      <h1>Premium 會員專區</h1>
+      <p>目前狀態：Coming Soon / Beta</p>
+      <p>Premium 版聚焦 TOP20 排名、法人籌碼、期貨結構與週報完整版，目前為 Coming Soon / Beta 架構。</p>
+    </section>
+
+    <div class="card">
+      <h2>今日 Premium 摘要</h2>
+      <div class="metric"><span>更新日期</span><span>2026/07/06</span></div>
+      <div class="metric"><span>台股完整排名</span><span>TOP20 欄位｜目前 10 檔</span></div>
+      <div class="metric"><span>美股完整排名</span><span>TOP20 欄位｜目前 10 檔正式輸出</span></div>
+      <div class="metric"><span>當沖多空</span><span>多方 3 檔｜空方 3 檔</span></div>
+    </div>
+
+    <div class="card">
+      <h2>免費版 vs Premium 版比較表</h2>
+      <table style="width:100%;border-collapse:collapse;line-height:1.8;">
+        <tr><th style="text-align:left;border-bottom:1px solid rgba(255,255,255,.18);">項目</th><th style="text-align:left;border-bottom:1px solid rgba(255,255,255,.18);">免費版</th><th style="text-align:left;border-bottom:1px solid rgba(255,255,255,.18);">Premium</th></tr>
+        <tr><td>市場方向</td><td>市場溫度、AI 摘要</td><td>完整解盤與風險層級</td></tr>
+        <tr><td>股票排名</td><td>台股 / 美股 TOP3</td><td>台股 TOP20、美股 TOP20 欄位</td></tr>
+        <tr><td>當沖雷達</td><td>多方 TOP3 / 空方 TOP3</td><td>多方 TOP10 / 空方 TOP10 欄位</td></tr>
+        <tr><td>籌碼</td><td>摘要</td><td>法人連買、期貨與 PCR 深度觀察</td></tr>
+        <tr><td>週報</td><td>週報摘要</td><td>週報完整版與 PDF 預留</td></tr>
+      </table>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h2>Premium 內容預覽｜台股 TOP20</h2><ul><li>1. 2449.TW 京元電子｜分數 91.0</li>
+<li>2. 6488.TWO 環球晶｜分數 91.0</li>
+<li>3. 3374.TWO 精材｜分數 91.0</li>
+<li>4. 5483.TWO 中美晶｜分數 91.0</li>
+<li>5. 6213.TW 聯茂｜分數 91.0</li></ul></div>
+      <div class="card"><h2>Premium 內容預覽｜美股排名</h2><ul><li>1. ABBV 艾伯維｜分數 83.1</li>
+<li>2. PGR PGR（Progressive）｜分數 83.0</li>
+<li>3. KMB 金佰利｜分數 82.6</li>
+<li>4. EW EW（Edwards Lifesciences）｜分數 82.3</li>
+<li>5. ALL ALL（Allstate）｜分數 82.1</li></ul></div>
+    </div>
+
+    <div class="card">
+      <h2>加入 Telegram 會員頻道提示</h2>
+      <p>Premium 會員頻道內容格式已先完成 dry-run，正式會員頻道與金流串接將於後續版本規劃。</p>
+      <p class="note">本頁不提供付款功能，也不宣稱帳號系統已啟用。</p>
+      <a class="btn" href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">前往 Telegram 頻道</a>
+    </div>
+    
+    <footer class="footer">
+      <div>Version：V1.1 Stable</div>
+      <div>Last Update：2026/07/07</div>
+      <div>GitHub Pages｜Copyright：Mengde Radar</div>
+    </footer>
+  </div>
+</body>
+</html>
