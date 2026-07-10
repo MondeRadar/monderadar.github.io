@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 歷史績效追蹤中心｜MONDE RADAR</title>
+  <style>
+    :root { --bg:#080d1c; --panel:#111827; --panel2:#0f172a; --line:rgba(255,255,255,.12); --gold:#ffd166; --text:#f8fafc; --muted:#94a3b8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Microsoft JhengHei",Arial,sans-serif; background:radial-gradient(circle at top,#18213a 0,#080d1c 58%); color:var(--text); }
+    .wrap { max-width:1120px; margin:auto; padding:36px 20px 28px; }
+    .brand { text-align:center; margin-bottom:22px; }
+    .brand h1 { margin:0; font-size:42px; letter-spacing:.08em; }
+    .brand p { color:var(--gold); font-weight:800; letter-spacing:.12em; }
+    .nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:18px 0 26px; }
+    .nav a { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:#e5e7eb; text-decoration:none; font-weight:700; }
+    .nav a:hover { background:rgba(255,209,102,.18); color:var(--gold); }
+    .hero, .card { background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:18px; padding:24px; margin:20px 0; line-height:1.8; box-shadow:0 8px 24px rgba(0,0,0,.24); }
+    .hero { background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(56,189,248,.10)); border-radius:24px; }
+    h1 { font-size:clamp(32px,6vw,52px); margin:10px 0; }
+    h2 { color:var(--gold); font-size:22px; margin:0 0 18px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
+    .metric { display:flex; justify-content:space-between; gap:18px; border-bottom:1px solid rgba(255,255,255,.08); padding:8px 0; }
+    .metric span:first-child { color:#dbeafe; }
+    .metric span:last-child { color:var(--gold); font-weight:700; text-align:right; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { padding:10px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left; }
+    .btn { display:inline-block; margin:8px 8px 0 0; padding:12px 20px; border-radius:999px; background:var(--gold); color:#111; text-decoration:none; font-weight:bold; }
+    .note { color:var(--muted); font-size:14px; }
+    .footer { margin-top:34px; padding:22px; border-top:1px solid rgba(255,255,255,.1); color:var(--muted); text-align:center; font-size:14px; }
+    @media (max-width:760px) { .wrap{padding:24px 14px;} .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;} .metric{display:block;} .metric span{display:block;text-align:left!important;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><h1>MONDE RADAR</h1><p>孟德雷達</p><div>掌握市場脈動</div></div>
+    
+    <nav class="nav">
+      <a href="index.html">首頁</a>
+      <a href="today.html">台股</a>
+      <a href="us.html">美股</a>
+      <a href="daytrade.html">當沖</a>
+      <a href="stock.html">個股評分</a>
+      <a href="performance.html">績效中心</a>
+      <a href="weekly.html">籌碼週報</a>
+      <a href="weekly_archive.html">歷史週報</a>
+      <a href="premium.html">Premium</a>
+      <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+
+    
+    <section class="hero">
+      <h1>AI 歷史績效追蹤中心</h1>
+      <p>永久保存每日入選股票，追蹤 1日、3日、5日、10日、20日、30日績效。</p>
+      <p class="note">不構成投資建議。</p>
+    </section>
+    <div class="grid">
+      <div class="card"><div class="metric"><span>今日追蹤股票數</span><span>33</span></div></div>
+      <div class="card"><div class="metric"><span>AI 勝率</span><span>0.00%</span></div></div>
+      <div class="card"><div class="metric"><span>平均報酬</span><span>+0.00%</span></div></div>
+      <div class="card"><div class="metric"><span>已完成追蹤</span><span>0</span></div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>最佳股票</h2><div class="metric"><span>ABBV</span><span>+0.00%</span></div></div>
+      <div class="card"><h2>最差股票</h2><div class="metric"><span>WELL</span><span>+0.00%</span></div></div>
+    </div>
+    <div class="card"><h2>Top10 Winners</h2><table><tr><th>股票</th><th>名稱</th><th>績效</th><th>狀態</th></tr><tr><td>ABBV</td><td>艾伯維</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>ADP</td><td>ADP</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>ALL</td><td>ALL（Allstate）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>EW</td><td>EW（Edwards Lifesciences）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>GD</td><td>通用動力</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>IBM</td><td>IBM（IBM）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>JNJ</td><td>嬌生</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>KMB</td><td>金佰利</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>LLY</td><td>禮來</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>PAYX</td><td>PAYX（Paychex）</td><td>+0.00%</td><td>tracking</td></tr></table></div>
+    <div class="card"><h2>Top10 Losers</h2><table><tr><th>股票</th><th>名稱</th><th>績效</th><th>狀態</th></tr><tr><td>WELL</td><td>WELL（Welltower）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>VRTX</td><td>Vertex</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>USB</td><td>美國合眾銀行</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>PGR</td><td>PGR（Progressive）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>PAYX</td><td>PAYX（Paychex）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>LLY</td><td>禮來</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>KMB</td><td>金佰利</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>JNJ</td><td>嬌生</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>IBM</td><td>IBM（IBM）</td><td>+0.00%</td><td>tracking</td></tr>
+<tr><td>GD</td><td>通用動力</td><td>+0.00%</td><td>tracking</td></tr></table></div>
+    <div class="card"><h2>近30日統計</h2>
+      <div class="metric"><span>平均 Day5 報酬</span><span>+0.00%</span></div>
+      <div class="metric"><span>平均 Day20 報酬</span><span>+0.00%</span></div>
+      <p class="note">Premium 可查看完整績效與全部股票；免費版顯示近30日統計與 Top5 Winners。</p>
+    </div>
+
+    <footer class="footer">Version：V1.5 Performance Center｜GitHub Pages｜Copyright：Mengde Radar</footer>
+  </div>
+</body>
+</html>

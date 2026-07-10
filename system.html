@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Status｜MONDE RADAR</title>
+  <style>
+    body{margin:0;font-family:"Microsoft JhengHei",Arial,sans-serif;background:#080d1c;color:#f8fafc;}
+    .wrap{max-width:980px;margin:auto;padding:36px 20px;}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0 26px;}
+    .nav a{padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.06);color:#e5e7eb;text-decoration:none;font-weight:700;}
+    .card{background:#111827;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:24px;margin:20px 0;}
+    table{width:100%;border-collapse:collapse;} td,th{padding:12px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;}
+    .pass{color:#86efac;font-weight:900;} .fail{color:#fca5a5;font-weight:900;}
+  </style>
+</head>
+<body><div class="wrap">
+  <h1>Production Status</h1>
+  <nav class="nav">
+    <a href="index.html">首頁</a><a href="today.html">台股</a><a href="us.html">美股</a>
+    <a href="daytrade.html">當沖</a><a href="stock.html">個股評分</a><a href="performance.html">績效中心</a>
+    <a href="weekly.html">籌碼週報</a><a href="premium.html">Premium</a>
+  </nav>
+  <div class="card"><h2 class="pass">Production PASS</h2><p>最近更新：2026-07-09</p></div>
+  <div class="card"><h2>Pipeline</h2><table><tr><th>Module</th><th>Status</th></tr><tr><td>source</td><td class="pass">PASS</td></tr>
+<tr><td>tw</td><td class="pass">PASS</td></tr>
+<tr><td>us</td><td class="pass">PASS</td></tr>
+<tr><td>weekly</td><td class="pass">PASS</td></tr>
+<tr><td>website</td><td class="pass">PASS</td></tr>
+<tr><td>stock_rating</td><td class="pass">PASS</td></tr>
+<tr><td>performance</td><td class="pass">PASS</td></tr>
+<tr><td>premium</td><td class="pass">PASS</td></tr>
+<tr><td>tts</td><td class="pass">PASS</td></tr>
+<tr><td>moviepy</td><td class="pass">PASS</td></tr>
+<tr><td>telegram</td><td class="pass">PASS</td></tr>
+<tr><td>daytrade</td><td class="pass">PASS</td></tr>
+<tr><td>commentary</td><td class="pass">PASS</td></tr></table></div>
+  <div class="card"><h2>Release Gate</h2>
+    <p>can_publish=True</p>
+    <p>can_send_telegram=True</p>
+    <p>can_deploy=True</p>
+    <p>reason=none</p>
+  </div>
+</div></body></html>
