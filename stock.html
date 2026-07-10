@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 個股評分中心｜MONDE RADAR</title>
+  <style>
+    :root { --bg:#080d1c; --panel:#111827; --panel2:#0f172a; --line:rgba(255,255,255,.12); --gold:#ffd166; --text:#f8fafc; --muted:#94a3b8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Microsoft JhengHei",Arial,sans-serif; background:radial-gradient(circle at top,#18213a 0,#080d1c 58%); color:var(--text); }
+    .wrap { max-width:1120px; margin:auto; padding:36px 20px 28px; }
+    .brand { text-align:center; margin-bottom:22px; }
+    .brand h1 { margin:0; font-size:42px; letter-spacing:.08em; }
+    .brand p { color:var(--gold); font-weight:800; letter-spacing:.12em; }
+    .nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:18px 0 26px; }
+    .nav a { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:#e5e7eb; text-decoration:none; font-weight:700; }
+    .nav a:hover { background:rgba(255,209,102,.18); color:var(--gold); }
+    .hero, .card { background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:18px; padding:24px; margin:20px 0; line-height:1.8; box-shadow:0 8px 24px rgba(0,0,0,.24); }
+    .hero { background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(56,189,248,.10)); border-radius:24px; }
+    h1 { font-size:clamp(32px,6vw,52px); margin:10px 0; }
+    h2 { color:var(--gold); font-size:22px; margin:0 0 18px; }
+    h3 { color:#e0f2fe; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+    .stock-card { display:block; color:var(--text); text-decoration:none; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:16px; }
+    .stock-card:hover { border-color:var(--gold); }
+    .metric { display:flex; justify-content:space-between; gap:18px; border-bottom:1px solid rgba(255,255,255,.08); padding:8px 0; }
+    .metric span:first-child { color:#dbeafe; }
+    .metric span:last-child { color:var(--gold); font-weight:700; text-align:right; }
+    .tag { display:inline-block; margin:4px 6px 4px 0; padding:4px 10px; border-radius:999px; background:rgba(255,209,102,.14); color:var(--gold); border:1px solid rgba(255,209,102,.24); }
+    input { width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--line); background:#020617; color:var(--text); font-size:18px; }
+    .btn { display:inline-block; margin:8px 8px 0 0; padding:12px 20px; border-radius:999px; background:var(--gold); color:#111; text-decoration:none; font-weight:bold; }
+    .note { color:var(--muted); font-size:14px; }
+    .footer { margin-top:34px; padding:22px; border-top:1px solid rgba(255,255,255,.1); color:var(--muted); text-align:center; font-size:14px; }
+    @media (max-width:760px) { .wrap{padding:24px 14px;} .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;} .metric{display:block;} .metric span{display:block;text-align:left!important;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><h1>MONDE RADAR</h1><p>孟德雷達</p><div>掌握市場脈動</div></div>
+    <nav class="nav">
+      <a href="index.html">首頁</a>
+      <a href="today.html">台股</a>
+      <a href="us.html">美股</a>
+      <a href="daytrade.html">當沖</a>
+      <a href="stock.html">個股評分</a>
+      <a href="performance.html">績效中心</a>
+      <a href="weekly.html">籌碼週報</a>
+      <a href="weekly_archive.html">歷史週報</a>
+      <a href="premium.html">Premium</a>
+      <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+    
+    <section class="hero">
+      <h1>AI 個股評分中心</h1>
+      <p>查看今日雷達入選股票的 AI 評分、風險與觀察價。</p>
+      <p class="note">更新日期：2026-07-07｜不構成投資建議。</p>
+    </section>
+    <div class="card">
+      <h2>個股查詢</h2>
+      <input id="stockSearch" placeholder="輸入股票代號，例如 2330.TW">
+      <p class="note">第一版為靜態頁面，僅查詢今日已產出的正式排名與 final_data。</p>
+    </div>
+    <div class="card"><h2>今日可查詢清單</h2><div class="grid" id="stockList"><a class="stock-card" href="stock_pages/2313_TW.html" data-symbol="2313.TW" data-name="華通">
+      <strong>2313.TW 華通</strong><br>
+      AI 總分：97<br>
+      <span class="note">當沖空方</span>
+    </a>
+<a class="stock-card" href="stock_pages/3037_TW.html" data-symbol="3037.TW" data-name="欣興">
+      <strong>3037.TW 欣興</strong><br>
+      AI 總分：97<br>
+      <span class="note">當沖空方</span>
+    </a>
+<a class="stock-card" href="stock_pages/2330_TW.html" data-symbol="2330.TW" data-name="台積電">
+      <strong>2330.TW 台積電</strong><br>
+      AI 總分：91<br>
+      <span class="note">Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/2449_TW.html" data-symbol="2449.TW" data-name="京元電子">
+      <strong>2449.TW 京元電子</strong><br>
+      AI 總分：91<br>
+      <span class="note">Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/3026_TW.html" data-symbol="3026.TW" data-name="禾伸堂">
+      <strong>3026.TW 禾伸堂</strong><br>
+      AI 總分：91<br>
+      <span class="note">Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/3374_TWO.html" data-symbol="3374.TWO" data-name="精材">
+      <strong>3374.TWO 精材</strong><br>
+      AI 總分：91<br>
+      <span class="note">Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/5483_TWO.html" data-symbol="5483.TWO" data-name="中美晶">
+      <strong>5483.TWO 中美晶</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/6213_TW.html" data-symbol="6213.TW" data-name="聯茂">
+      <strong>6213.TW 聯茂</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/6488_TWO.html" data-symbol="6488.TWO" data-name="環球晶">
+      <strong>6488.TWO 環球晶</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、當沖多方、Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/1326_TW.html" data-symbol="1326.TW" data-name="台化">
+      <strong>1326.TW 台化</strong><br>
+      AI 總分：89<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/3481_TW.html" data-symbol="3481.TW" data-name="群創">
+      <strong>3481.TW 群創</strong><br>
+      AI 總分：89<br>
+      <span class="note">當沖空方</span>
+    </a>
+<a class="stock-card" href="stock_pages/1301_TW.html" data-symbol="1301.TW" data-name="台塑">
+      <strong>1301.TW 台塑</strong><br>
+      AI 總分：88<br>
+      <span class="note">Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/2484_TW.html" data-symbol="2484.TW" data-name="希華">
+      <strong>2484.TW 希華</strong><br>
+      AI 總分：88<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/6182_TWO.html" data-symbol="6182.TWO" data-name="合晶">
+      <strong>6182.TWO 合晶</strong><br>
+      AI 總分：85<br>
+      <span class="note">台股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/8150_TW.html" data-symbol="8150.TW" data-name="南茂">
+      <strong>8150.TW 南茂</strong><br>
+      AI 總分：85<br>
+      <span class="note">台股TOP10、當沖多方</span>
+    </a>
+<a class="stock-card" href="stock_pages/3167_TW.html" data-symbol="3167.TW" data-name="大量">
+      <strong>3167.TW 大量</strong><br>
+      AI 總分：83<br>
+      <span class="note">台股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/6669_TW.html" data-symbol="6669.TW" data-name="緯穎">
+      <strong>6669.TW 緯穎</strong><br>
+      AI 總分：81<br>
+      <span class="note">台股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/5351_TWO.html" data-symbol="5351.TWO" data-name="鈺創">
+      <strong>5351.TWO 鈺創</strong><br>
+      AI 總分：78<br>
+      <span class="note">台股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/3532_TW.html" data-symbol="3532.TW" data-name="台勝科">
+      <strong>3532.TW 台勝科</strong><br>
+      AI 總分：76<br>
+      <span class="note">當沖多方</span>
+    </a>
+<a class="stock-card" href="stock_pages/JNJ.html" data-symbol="JNJ" data-name="嬌生">
+      <strong>JNJ 嬌生</strong><br>
+      AI 總分：83.8<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/LLY.html" data-symbol="LLY" data-name="禮來">
+      <strong>LLY 禮來</strong><br>
+      AI 總分：83.8<br>
+      <span class="note">美股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/VRTX.html" data-symbol="VRTX" data-name="Vertex">
+      <strong>VRTX Vertex</strong><br>
+      AI 總分：83.4<br>
+      <span class="note">美股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/ADP.html" data-symbol="ADP" data-name="ADP">
+      <strong>ADP ADP</strong><br>
+      AI 總分：83.2<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/ABBV.html" data-symbol="ABBV" data-name="艾伯維">
+      <strong>ABBV 艾伯維</strong><br>
+      AI 總分：83.1<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/PGR.html" data-symbol="PGR" data-name="PGR（Progressive）">
+      <strong>PGR PGR（Progressive）</strong><br>
+      AI 總分：83<br>
+      <span class="note">Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/PAYX.html" data-symbol="PAYX" data-name="PAYX（Paychex）">
+      <strong>PAYX PAYX（Paychex）</strong><br>
+      AI 總分：82.8<br>
+      <span class="note">美股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/KMB.html" data-symbol="KMB" data-name="金佰利">
+      <strong>KMB 金佰利</strong><br>
+      AI 總分：82.6<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/EW.html" data-symbol="EW" data-name="EW（Edwards Lifesciences）">
+      <strong>EW EW（Edwards Lifesciences）</strong><br>
+      AI 總分：82.3<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/IBM.html" data-symbol="IBM" data-name="IBM（IBM）">
+      <strong>IBM IBM（IBM）</strong><br>
+      AI 總分：82.3<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/WELL.html" data-symbol="WELL" data-name="WELL（Welltower）">
+      <strong>WELL WELL（Welltower）</strong><br>
+      AI 總分：82.2<br>
+      <span class="note">美股TOP10</span>
+    </a>
+<a class="stock-card" href="stock_pages/ALL.html" data-symbol="ALL" data-name="ALL（Allstate）">
+      <strong>ALL ALL（Allstate）</strong><br>
+      AI 總分：82.1<br>
+      <span class="note">Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/USB.html" data-symbol="USB" data-name="美國合眾銀行">
+      <strong>USB 美國合眾銀行</strong><br>
+      AI 總分：81.1<br>
+      <span class="note">Premium美股TOP20</span>
+    </a>
+<a class="stock-card" href="stock_pages/GD.html" data-symbol="GD" data-name="通用動力">
+      <strong>GD 通用動力</strong><br>
+      AI 總分：80.7<br>
+      <span class="note">Premium美股TOP20</span>
+    </a></div></div>
+    <div class="grid">
+      <div class="card"><h2>台股 TOP10</h2><div class="grid"><a class="stock-card" href="stock_pages/5483_TWO.html" data-symbol="5483.TWO" data-name="中美晶">
+      <strong>5483.TWO 中美晶</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/6213_TW.html" data-symbol="6213.TW" data-name="聯茂">
+      <strong>6213.TW 聯茂</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/6488_TWO.html" data-symbol="6488.TWO" data-name="環球晶">
+      <strong>6488.TWO 環球晶</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、當沖多方、Premium台股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/1326_TW.html" data-symbol="1326.TW" data-name="台化">
+      <strong>1326.TW 台化</strong><br>
+      AI 總分：89<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/2484_TW.html" data-symbol="2484.TW" data-name="希華">
+      <strong>2484.TW 希華</strong><br>
+      AI 總分：88<br>
+      <span class="note">台股TOP10、Premium台股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/6182_TWO.html" data-symbol="6182.TWO" data-name="合晶">
+      <strong>6182.TWO 合晶</strong><br>
+      AI 總分：85<br>
+      <span class="note">台股TOP10</span>
+    </a><a class="stock-card" href="stock_pages/8150_TW.html" data-symbol="8150.TW" data-name="南茂">
+      <strong>8150.TW 南茂</strong><br>
+      AI 總分：85<br>
+      <span class="note">台股TOP10、當沖多方</span>
+    </a><a class="stock-card" href="stock_pages/3167_TW.html" data-symbol="3167.TW" data-name="大量">
+      <strong>3167.TW 大量</strong><br>
+      AI 總分：83<br>
+      <span class="note">台股TOP10</span>
+    </a><a class="stock-card" href="stock_pages/6669_TW.html" data-symbol="6669.TW" data-name="緯穎">
+      <strong>6669.TW 緯穎</strong><br>
+      AI 總分：81<br>
+      <span class="note">台股TOP10</span>
+    </a><a class="stock-card" href="stock_pages/5351_TWO.html" data-symbol="5351.TWO" data-name="鈺創">
+      <strong>5351.TWO 鈺創</strong><br>
+      AI 總分：78<br>
+      <span class="note">台股TOP10</span>
+    </a></div></div>
+      <div class="card"><h2>美股 TOP10</h2><div class="grid"><a class="stock-card" href="stock_pages/JNJ.html" data-symbol="JNJ" data-name="嬌生">
+      <strong>JNJ 嬌生</strong><br>
+      AI 總分：83.8<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/LLY.html" data-symbol="LLY" data-name="禮來">
+      <strong>LLY 禮來</strong><br>
+      AI 總分：83.8<br>
+      <span class="note">美股TOP10</span>
+    </a><a class="stock-card" href="stock_pages/VRTX.html" data-symbol="VRTX" data-name="Vertex">
+      <strong>VRTX Vertex</strong><br>
+      AI 總分：83.4<br>
+      <span class="note">美股TOP10</span>
+    </a><a class="stock-card" href="stock_pages/ADP.html" data-symbol="ADP" data-name="ADP">
+      <strong>ADP ADP</strong><br>
+      AI 總分：83.2<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/ABBV.html" data-symbol="ABBV" data-name="艾伯維">
+      <strong>ABBV 艾伯維</strong><br>
+      AI 總分：83.1<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/PAYX.html" data-symbol="PAYX" data-name="PAYX（Paychex）">
+      <strong>PAYX PAYX（Paychex）</strong><br>
+      AI 總分：82.8<br>
+      <span class="note">美股TOP10</span>
+    </a><a class="stock-card" href="stock_pages/KMB.html" data-symbol="KMB" data-name="金佰利">
+      <strong>KMB 金佰利</strong><br>
+      AI 總分：82.6<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/EW.html" data-symbol="EW" data-name="EW（Edwards Lifesciences）">
+      <strong>EW EW（Edwards Lifesciences）</strong><br>
+      AI 總分：82.3<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/IBM.html" data-symbol="IBM" data-name="IBM（IBM）">
+      <strong>IBM IBM（IBM）</strong><br>
+      AI 總分：82.3<br>
+      <span class="note">美股TOP10、Premium美股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/WELL.html" data-symbol="WELL" data-name="WELL（Welltower）">
+      <strong>WELL WELL（Welltower）</strong><br>
+      AI 總分：82.2<br>
+      <span class="note">美股TOP10</span>
+    </a></div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>當沖多方 / 空方</h2><h3>多方</h3><div class="grid"><a class="stock-card" href="stock_pages/6488_TWO.html" data-symbol="6488.TWO" data-name="環球晶">
+      <strong>6488.TWO 環球晶</strong><br>
+      AI 總分：91<br>
+      <span class="note">台股TOP10、當沖多方、Premium台股TOP20</span>
+    </a><a class="stock-card" href="stock_pages/8150_TW.html" data-symbol="8150.TW" data-name="南茂">
+      <strong>8150.TW 南茂</strong><br>
+      AI 總分：85<br>
+      <span class="note">台股TOP10、當沖多方</span>
+    </a><a class="stock-card" href="stock_pages/3532_TW.html" data-symbol="3532.TW" data-name="台勝科">
+      <strong>3532.TW 台勝科</strong><br>
+      AI 總分：76<br>
+      <span class="note">當沖多方</span>
+    </a></div><h3>空方</h3><div class="grid"><a class="stock-card" href="stock_pages/2313_TW.html" data-symbol="2313.TW" data-name="華通">
+      <strong>2313.TW 華通</strong><br>
+      AI 總分：97<br>
+      <span class="note">當沖空方</span>
+    </a><a class="stock-card" href="stock_pages/3037_TW.html" data-symbol="3037.TW" data-name="欣興">
+      <strong>3037.TW 欣興</strong><br>
+      AI 總分：97<br>
+      <span class="note">當沖空方</span>
+    </a><a class="stock-card" href="stock_pages/3481_TW.html" data-symbol="3481.TW" data-name="群創">
+      <strong>3481.TW 群創</strong><br>
+      AI 總分：89<br>
+      <span class="note">當沖空方</span>
+    </a></div></div>
+      <div class="card"><h2>Premium 預覽</h2><p>Premium TOP20 / 更多條件為 Coming Soon；目前僅顯示已可由正式輸出解析的項目。</p></div>
+    </div>
+    <script>
+      const input = document.getElementById('stockSearch');
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toUpperCase();
+        document.querySelectorAll('.stock-card').forEach(card => {
+          const hay = (card.dataset.symbol + ' ' + card.dataset.name).toUpperCase();
+          card.style.display = hay.includes(q) ? 'block' : 'none';
+        });
+      });
+    </script>
+    
+    <footer class="footer">Version：V1.4 Stock Rating Center｜GitHub Pages｜Copyright：Mengde Radar</footer>
+  </div>
+</body>
+</html>
