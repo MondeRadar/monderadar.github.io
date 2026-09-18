@@ -1,0 +1,35 @@
+{
+  "schema_version": "FUTURES_RADAR_PRESENTATION_V1",
+  "generated_at": "2026-09-18T07:21:34+08:00",
+  "radar_date": "2026-09-17",
+  "source_file": "reports/futures_radar/futures_radar_latest.json",
+  "source_radar_hash": "95842acf12f3ef3483103327bb7f7b49e673d790c98f1fbd14f2f4f73d4cd369",
+  "release_readiness": "READY_WITH_REVIEW_PENDING",
+  "pair_status": "PAIR_COMPLETE",
+  "pairing": {"canonical_shadow_date": "2026-09-17", "TXF": "PRESENT", "ES": "PRESENT", "warning": null},
+  "forward_shadow": {"valid_prediction_days": null, "current_shadow_date": "2026-09-17", "pair_status": "PAIR_COMPLETE", "review_count": 0, "pending_count": 2, "ambiguous_count": 0},
+  "integrity": {"scheduler": "PROVEN", "hash": "VERIFIED", "historical_replay": "NO", "future_leakage": "PASS"},
+  "consumer_only": true,
+  "markets": {
+    "TXF": {
+      "market": "TXF", "display_name": "台指期 TXF", "is_current": true, "status": "PRESENT",
+      "business_date": "2026-09-17", "prediction_id": "TXF-20260917-DAILY", "snapshot_hash": "8e0ad4021e68d1c3",
+      "generated_at": "2026-09-17T13:50:08+08:00", "direction": "LONG", "entry": 46652.0, "stop": 46539.88,
+      "target": 46794.2, "rr": 1.27, "daily_support": "28,066.75–29,075.90 (STRONG)",
+      "daily_resistance": "47,220.00 (PROVISIONAL)", "hourly_support": "46,580.00–46,652.00 (STRONG)",
+      "hourly_resistance": "46,794.20 (DEVELOPING)", "strategy_status": "PASS", "review_status": "REVIEW_PENDING_VALIDLY",
+      "review_resolution": "官方盤後資料", "source_freshness": {"daily": {"source": "data/futures/txf_daily.csv", "status": "PASS"}, "60m": {"source": "data/futures/txf_60m.csv", "status": "PASS"}},
+      "scheduler_evidence": {"evidence_role": "PREDICTION_CREATION", "trigger_source": "WINDOWS_SCHEDULER", "provenance_confidence": "PROVEN", "evidence_status": "PRESENT"}
+    },
+    "ES": {
+      "market": "ES", "display_name": "E-mini S&P 500 ES", "is_current": true, "status": "PRESENT",
+      "business_date": "2026-09-17", "prediction_id": "ES-20260917-DAILY", "snapshot_hash": "d2d857e5bb7d60ae",
+      "generated_at": "2026-09-18T05:10:05+08:00", "direction": "LONG", "entry": 7697.0, "stop": 7693.6,
+      "target": 7707.25, "rr": 3.01, "daily_support": "7,655.00–7,671.01 (CONFIRMED)",
+      "daily_resistance": "7,722.25 (PROVISIONAL)", "hourly_support": "7,697.00 (PROVISIONAL)",
+      "hourly_resistance": "7,707.25 (DEVELOPING)", "strategy_status": "PASS", "review_status": "REVIEW_PENDING_VALIDLY",
+      "review_resolution": "日線驗證", "source_freshness": {"daily": {"source": "yfinance_es_daily", "status": "PASS"}, "60m": {"source": "yfinance_es_60m", "status": "PASS"}},
+      "scheduler_evidence": {"evidence_role": "PREDICTION_CREATION", "trigger_source": "WINDOWS_SCHEDULER", "provenance_confidence": "PROVEN", "evidence_status": "PRESENT"}
+    }
+  }
+}
