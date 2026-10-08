@@ -1,11 +1,11 @@
 {
   "schema_version": "FUTURES_RADAR_PRESENTATION_V1",
-  "generated_at": "2026-10-06T22:01:13+08:00",
-  "expected_latest_radar_date": "2026-10-06",
+  "generated_at": "2026-10-08T14:15:02+08:00",
+  "expected_latest_radar_date": "2026-10-08",
   "age_status": "DATA_PENDING",
-  "radar_date": "2026-10-06",
+  "radar_date": "2026-10-08",
   "source_file": "futures_snapshot_history.json",
-  "source_radar_hash": "93fd8f6094c243f9d99b4f8ea8e5fdf2b16b7b466c3291ada37a9415fcd5f619",
+  "source_radar_hash": "06e85972bf97389eba3bfe34e6b4ec3da6920c24eb028de836757cb713128d9e",
   "release_readiness": "DATA_PENDING",
   "pair_status": "PAIR_INCOMPLETE",
   "pairing": {
@@ -16,7 +16,7 @@
   },
   "forward_shadow": {
     "valid_prediction_days": null,
-    "current_shadow_date": "2026-10-06",
+    "current_shadow_date": "2026-10-08",
     "pair_status": "PAIR_INCOMPLETE",
     "review_count": 0,
     "pending_count": 0,
@@ -92,12 +92,12 @@
       "display_name": "E-mini S&P 500 ES",
       "is_current": false,
       "status": "HISTORICAL",
-      "business_date": "2026-10-05",
-      "prediction_id": "ES-20261005-DAILY",
-      "snapshot_hash": "8659c04cba48ffe7",
-      "generated_at": "2026-10-06T05:10:05+08:00",
-      "analysis_window_start": "2026-10-06T05:10:00+08:00",
-      "canonical_shadow_date": "2026-10-06",
+      "business_date": "2026-10-07",
+      "prediction_id": "ES-20261007-DAILY",
+      "snapshot_hash": "f77f082473057be5",
+      "generated_at": "2026-10-08T05:10:09+08:00",
+      "analysis_window_start": "2026-10-08T05:10:00+08:00",
+      "canonical_shadow_date": "2026-10-08",
       "provenance_confidence": "PROVEN",
       "direction": null,
       "entry": null,
@@ -117,14 +117,14 @@
           "provider": "Yahoo Finance via yfinance",
           "trust": "YFINANCE_ONLY",
           "status": "PASS",
-          "normalized_hash": "535a749d16f66296d3963354da701f86e2486ed0edbf73bf4f21990afcdca51d",
+          "normalized_hash": "89d9c696b24cf42ac761066fcca38e2bfe13b30a2ca3184f2a6f41d1e79c1e2b",
           "algorithm_version": "FUTURES_LEVEL_ENGINE_V1",
           "instrument": "ES=F",
           "continuous_contract": true,
-          "latest_timestamp": "2026-10-05 00:00:00",
-          "latest_date": "2026-10-05",
-          "row_count": 127,
-          "trading_day_count": 127,
+          "latest_timestamp": "2026-10-07 00:00:00",
+          "latest_date": "2026-10-07",
+          "row_count": 128,
+          "trading_day_count": 128,
           "freshness": "CURRENT_SESSION_COMPLETE",
           "session_freshness": "CURRENT_SESSION_COMPLETE"
         },
@@ -133,12 +133,12 @@
           "provider": "Yahoo Finance via yfinance",
           "trust": "YFINANCE_ONLY",
           "status": "PASS",
-          "normalized_hash": "89b3d0c76c88365dde412d6ef0c1a1940e686a2d0af23fcb94f29a9e99ee206a",
+          "normalized_hash": "7c3aca4cd23e7c159d410e61f2d00cf2c7a216270f8d9f02e4c5016a7ffe9989",
           "algorithm_version": "FUTURES_LEVEL_ENGINE_V1",
           "instrument": "ES=F",
           "continuous_contract": true,
-          "latest_timestamp": "2026-10-05 16:00:00-04:00",
-          "latest_date": "2026-10-05",
+          "latest_timestamp": "2026-10-07 16:00:00-04:00",
+          "latest_date": "2026-10-07",
           "row_count": 1140,
           "trading_day_count": 59,
           "freshness": "CURRENT_SESSION_COMPLETE",
@@ -147,13 +147,13 @@
       },
       "scheduler_evidence": {
         "provenance_confidence": "PROVEN",
-        "execution_id": "60001d11-ba33-45ed-afb6-689ea541efce",
-        "attempt_id": "a46b98e9-7068-418a-8205-4b135fd3f9fa"
+        "execution_id": "e446d886-b11d-4433-9302-8b4787938f13",
+        "attempt_id": "17c25808-7416-4b2f-9d6a-28b36f7c4a48"
       },
       "historical_reference": {
-        "prediction_id": "ES-20261005-DAILY",
-        "canonical_shadow_date": "2026-10-06",
-        "snapshot_hash": "8659c04cba48ffe7"
+        "prediction_id": "ES-20261007-DAILY",
+        "canonical_shadow_date": "2026-10-08",
+        "snapshot_hash": "f77f082473057be5"
       }
     }
   }
