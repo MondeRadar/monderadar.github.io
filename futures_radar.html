@@ -1,191 +1,62 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>孟德雷達｜期貨雷達</title>
-  <style>
-    :root{--bg:#0b1220;--card:#121c2e;--line:#2d405d;--text:#e7edf7;--muted:#a8b7cc;--gold:#f6c453;--green:#55d6a5;--red:#ff8a8a;--blue:#62b0ff;--orange:#ff9f68;--daily:#9db7ff}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,'Noto Sans TC',sans-serif} main{max-width:1180px;margin:auto;padding:28px 18px 42px} h1,h2{margin:0 0 10px;color:var(--gold)} h1{font-size:clamp(28px,5vw,48px)} p{margin:7px 0;color:var(--muted)} .hero,.card,.panel{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:22px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kv,.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin-top:14px}.label,.muted{color:var(--muted)}.value{text-align:right;overflow-wrap:anywhere}.badge{display:inline-block;border-radius:999px;padding:6px 12px;background:#1f334c;color:var(--green);font-weight:700}.warn{color:var(--gold)}.error{padding:16px;border-radius:12px;background:#281d25;color:var(--red);border:1px solid #864b5a}.loading{padding:16px;border-radius:12px;background:#18253a} details{color:var(--muted)} summary{cursor:pointer;color:var(--gold)} button{border:1px solid var(--line);border-radius:8px;background:#1f334c;color:var(--text);padding:8px 12px;cursor:pointer}.badge.pending{background:#3b2d12;color:#ffd77b}.pending-card{border-color:#806128}.pending-card h2{color:#ffd77b}
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="monde-report-date" content="2026-11-02">
+<title>孟德雷達｜期貨雷達</title>
+<link rel="icon" href="assets/logo.png">
+<style>
+:root{--bg:#0b1220;--card:#121c2e;--line:#2d405d;--text:#e7edf7;--muted:#a8b7cc;--gold:#f6c453;--up:#ff6b6b;--down:#3ddc84;--orange:#ff9f68;--ma10:#7aa2f7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.6}
+main{max-width:1180px;margin:auto;padding:24px max(16px,env(safe-area-inset-left)) 40px}
+a{color:var(--gold)}h1,h2{margin:0;color:var(--gold)}h1{font-size:clamp(28px,5vw,44px)}h2{font-size:26px}
+.hero,.card{border:1px solid var(--line);border-radius:18px;background:var(--card);padding:20px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:14px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pill{border-radius:999px;padding:4px 14px;font-weight:700;font-size:15px}.pill.up{background:#3a1d22;color:var(--up)}.pill.down{background:#123326;color:var(--down)}
+.muted,.label{color:var(--muted)}.label{display:block;font-size:13px}p{margin:6px 0}
+.price{display:flex;align-items:baseline;gap:12px;margin:8px 0}.price b{font-size:36px;font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--down)}.stop{color:var(--orange)}
+.levels,.mas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.mas{grid-template-columns:repeat(4,1fr)}
+.levels div,.mas div{min-width:0;background:#0e1726;border:1px solid var(--line);border-radius:12px;padding:8px 10px}.levels b,.mas b{font-size:20px;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.mas{grid-template-columns:repeat(2,1fr)}.levels b,.mas b{font-size:17px}.price b{font-size:30px}}
+.chart svg{width:100%;height:auto;display:block}footer{color:var(--muted);font-size:14px;margin-top:18px}
+</style>
 </head>
-<body>
-  <main>
-    <section class="hero">
-      <h1>孟德雷達</h1>
-      <p>Futures Radar｜期貨雷達</p>
-      <p id="radar-date">資料載入中</p>
-      <span id="readiness" class="badge">載入中</span>
-      <p id="pair-warning" class="warn"></p>
+<body><main>
+  <p><a href="index.html">← 回首頁</a></p>
+  <section class="hero">
+    <h1>孟德雷達｜期貨雷達</h1>
+    <p>台指期與 S&amp;P500 期貨日線波段｜更新日期 2026-11-02</p>
+    <p class="muted">每個交易日 16:30 依完整日線更新；非盤中預測，也不是交易指令。</p>
+    <p class="muted">點位規則：收盤相對 MA20 判斷多空；進場參考為 MA10 拉回（最多一倍 ATR14），停損 1.5 倍 ATR，目標 3 倍 ATR（風險報酬 1:2）。</p>
+  </section>
+  <div class="grid">
+    <section class="card">
+      <div class="head"><h2>台指期</h2><span class="pill down">偏空</span></div>
+      <p class="muted">資料截至 2026-10-30｜期交所完整日盤（近月連續、未調整，不含夜盤）</p>
+      <div class="price"><b>45,301</b><span class="down">-1,276.00（-2.74%）</span></div>
+      <p>跌破 MA20（47,869），偏空看待。</p>
+      <div class="levels">
+        <div><span class="label">進場參考</span><b>46,312</b></div>
+        <div><span class="label">停損</span><b class="stop">47,828</b></div>
+        <div><span class="label">目標</span><b class="down">43,280</b></div>
+      </div>
+      <div class="chart"><svg viewBox="0 0 640 346" role="img" aria-label="台指期 近 60 日 K 線與進場、停損、目標"><line x1="11.9" y1="254.9" x2="11.9" y2="286.6" stroke="var(--up)" stroke-width="1"/><rect x="9.2" y="277.5" width="5.4" height="1.6" fill="var(--up)"/><line x1="19.7" y1="256.6" x2="19.7" y2="302.9" stroke="var(--up)" stroke-width="1"/><rect x="17.0" y="272.8" width="5.4" height="22.7" fill="var(--up)"/><line x1="27.5" y1="214.2" x2="27.5" y2="240.6" stroke="var(--down)" stroke-width="1"/><rect x="24.7" y="224.3" width="5.4" height="5.2" fill="var(--down)"/><line x1="35.2" y1="230.3" x2="35.2" y2="254.6" stroke="var(--up)" stroke-width="1"/><rect x="32.5" y="238.3" width="5.4" height="3.9" fill="var(--up)"/><line x1="43.0" y1="220.9" x2="43.0" y2="251.6" stroke="var(--down)" stroke-width="1"/><rect x="40.3" y="226.8" width="5.4" height="8.9" fill="var(--down)"/><line x1="50.8" y1="203.2" x2="50.8" y2="223.8" stroke="var(--up)" stroke-width="1"/><rect x="48.1" y="211.8" width="5.4" height="1.0" fill="var(--up)"/><line x1="58.6" y1="203.9" x2="58.6" y2="227.4" stroke="var(--up)" stroke-width="1"/><rect x="55.9" y="208.0" width="5.4" height="12.3" fill="var(--up)"/><line x1="66.4" y1="190.4" x2="66.4" y2="205.5" stroke="var(--up)" stroke-width="1"/><rect x="63.7" y="191.6" width="5.4" height="6.7" fill="var(--up)"/><line x1="74.2" y1="164.6" x2="74.2" y2="179.9" stroke="var(--down)" stroke-width="1"/><rect x="71.4" y="169.5" width="5.4" height="4.3" fill="var(--down)"/><line x1="81.9" y1="156.4" x2="81.9" y2="186.1" stroke="var(--down)" stroke-width="1"/><rect x="79.2" y="156.5" width="5.4" height="23.4" fill="var(--down)"/><line x1="89.7" y1="168.7" x2="89.7" y2="183.8" stroke="var(--up)" stroke-width="1"/><rect x="87.0" y="178.2" width="5.4" height="1.4" fill="var(--up)"/><line x1="97.5" y1="174.8" x2="97.5" y2="208.7" stroke="var(--down)" stroke-width="1"/><rect x="94.8" y="175.2" width="5.4" height="33.0" fill="var(--down)"/><line x1="105.3" y1="216.0" x2="105.3" y2="237.5" stroke="var(--up)" stroke-width="1"/><rect x="102.6" y="229.0" width="5.4" height="7.4" fill="var(--up)"/><line x1="113.1" y1="206.8" x2="113.1" y2="232.0" stroke="var(--down)" stroke-width="1"/><rect x="110.4" y="213.2" width="5.4" height="3.1" fill="var(--down)"/><line x1="120.9" y1="200.4" x2="120.9" y2="227.6" stroke="var(--up)" stroke-width="1"/><rect x="118.1" y="205.8" width="5.4" height="9.8" fill="var(--up)"/><line x1="128.6" y1="200.4" x2="128.6" y2="226.0" stroke="var(--down)" stroke-width="1"/><rect x="125.9" y="210.2" width="5.4" height="10.1" fill="var(--down)"/><line x1="136.4" y1="207.8" x2="136.4" y2="243.3" stroke="var(--up)" stroke-width="1"/><rect x="133.7" y="210.3" width="5.4" height="20.2" fill="var(--up)"/><line x1="144.2" y1="173.0" x2="144.2" y2="216.4" stroke="var(--up)" stroke-width="1"/><rect x="141.5" y="173.6" width="5.4" height="27.1" fill="var(--up)"/><line x1="152.0" y1="154.6" x2="152.0" y2="173.7" stroke="var(--down)" stroke-width="1"/><rect x="149.3" y="167.4" width="5.4" height="3.6" fill="var(--down)"/><line x1="159.8" y1="152.3" x2="159.8" y2="165.9" stroke="var(--down)" stroke-width="1"/><rect x="157.1" y="160.3" width="5.4" height="1.0" fill="var(--down)"/><line x1="167.6" y1="171.7" x2="167.6" y2="195.8" stroke="var(--up)" stroke-width="1"/><rect x="164.8" y="174.6" width="5.4" height="6.8" fill="var(--up)"/><line x1="175.3" y1="128.3" x2="175.3" y2="174.5" stroke="var(--up)" stroke-width="1"/><rect x="172.6" y="128.8" width="5.4" height="45.2" fill="var(--up)"/><line x1="183.1" y1="146.1" x2="183.1" y2="169.1" stroke="var(--down)" stroke-width="1"/><rect x="180.4" y="147.8" width="5.4" height="19.1" fill="var(--down)"/><line x1="190.9" y1="156.3" x2="190.9" y2="184.7" stroke="var(--down)" stroke-width="1"/><rect x="188.2" y="167.6" width="5.4" height="12.4" fill="var(--down)"/><line x1="198.7" y1="145.7" x2="198.7" y2="171.8" stroke="var(--up)" stroke-width="1"/><rect x="196.0" y="147.6" width="5.4" height="11.1" fill="var(--up)"/><line x1="206.5" y1="115.2" x2="206.5" y2="133.1" stroke="var(--up)" stroke-width="1"/><rect x="203.8" y="119.0" width="5.4" height="7.1" fill="var(--up)"/><line x1="214.3" y1="114.4" x2="214.3" y2="139.0" stroke="var(--down)" stroke-width="1"/><rect x="211.5" y="118.6" width="5.4" height="18.7" fill="var(--down)"/><line x1="222.0" y1="114.4" x2="222.0" y2="134.6" stroke="var(--up)" stroke-width="1"/><rect x="219.3" y="129.6" width="5.4" height="4.2" fill="var(--up)"/><line x1="229.8" y1="138.4" x2="229.8" y2="155.0" stroke="var(--down)" stroke-width="1"/><rect x="227.1" y="138.8" width="5.4" height="2.6" fill="var(--down)"/><line x1="237.6" y1="161.3" x2="237.6" y2="182.2" stroke="var(--up)" stroke-width="1"/><rect x="234.9" y="165.8" width="5.4" height="14.9" fill="var(--up)"/><line x1="245.4" y1="173.3" x2="245.4" y2="200.1" stroke="var(--up)" stroke-width="1"/><rect x="242.7" y="182.2" width="5.4" height="7.1" fill="var(--up)"/><line x1="253.2" y1="175.3" x2="253.2" y2="192.2" stroke="var(--down)" stroke-width="1"/><rect x="250.5" y="182.3" width="5.4" height="6.4" fill="var(--down)"/><line x1="261.0" y1="164.9" x2="261.0" y2="186.0" stroke="var(--up)" stroke-width="1"/><rect x="258.2" y="171.0" width="5.4" height="14.6" fill="var(--up)"/><line x1="268.7" y1="135.2" x2="268.7" y2="159.9" stroke="var(--down)" stroke-width="1"/><rect x="266.0" y="155.5" width="5.4" height="1.9" fill="var(--down)"/><line x1="276.5" y1="119.2" x2="276.5" y2="140.4" stroke="var(--up)" stroke-width="1"/><rect x="273.8" y="120.9" width="5.4" height="12.6" fill="var(--up)"/><line x1="284.3" y1="95.8" x2="284.3" y2="118.0" stroke="var(--up)" stroke-width="1"/><rect x="281.6" y="96.3" width="5.4" height="17.6" fill="var(--up)"/><line x1="292.1" y1="63.8" x2="292.1" y2="97.9" stroke="var(--down)" stroke-width="1"/><rect x="289.4" y="66.0" width="5.4" height="24.1" fill="var(--down)"/><line x1="299.9" y1="75.9" x2="299.9" y2="90.8" stroke="var(--down)" stroke-width="1"/><rect x="297.2" y="79.4" width="5.4" height="7.2" fill="var(--down)"/><line x1="307.7" y1="88.9" x2="307.7" y2="106.8" stroke="var(--up)" stroke-width="1"/><rect x="304.9" y="94.6" width="5.4" height="10.2" fill="var(--up)"/><line x1="315.4" y1="91.9" x2="315.4" y2="113.0" stroke="var(--down)" stroke-width="1"/><rect x="312.7" y="95.5" width="5.4" height="12.4" fill="var(--down)"/><line x1="323.2" y1="75.0" x2="323.2" y2="90.6" stroke="var(--down)" stroke-width="1"/><rect x="320.5" y="81.7" width="5.4" height="5.1" fill="var(--down)"/><line x1="331.0" y1="72.3" x2="331.0" y2="92.9" stroke="var(--up)" stroke-width="1"/><rect x="328.3" y="73.6" width="5.4" height="10.7" fill="var(--up)"/><line x1="338.8" y1="69.2" x2="338.8" y2="81.5" stroke="var(--up)" stroke-width="1"/><rect x="336.1" y="74.1" width="5.4" height="4.4" fill="var(--up)"/><line x1="346.6" y1="20.8" x2="346.6" y2="44.6" stroke="var(--up)" stroke-width="1"/><rect x="343.9" y="26.3" width="5.4" height="17.9" fill="var(--up)"/><line x1="354.4" y1="17.1" x2="354.4" y2="34.9" stroke="var(--down)" stroke-width="1"/><rect x="351.6" y="17.7" width="5.4" height="4.5" fill="var(--down)"/><line x1="362.1" y1="20.0" x2="362.1" y2="30.3" stroke="var(--down)" stroke-width="1"/><rect x="359.4" y="22.5" width="5.4" height="2.7" fill="var(--down)"/><line x1="369.9" y1="35.9" x2="369.9" y2="49.3" stroke="var(--down)" stroke-width="1"/><rect x="367.2" y="43.8" width="5.4" height="4.9" fill="var(--down)"/><line x1="377.7" y1="39.6" x2="377.7" y2="65.2" stroke="var(--up)" stroke-width="1"/><rect x="375.0" y="50.2" width="5.4" height="12.5" fill="var(--up)"/><line x1="385.5" y1="69.5" x2="385.5" y2="90.2" stroke="var(--down)" stroke-width="1"/><rect x="382.8" y="76.5" width="5.4" height="7.7" fill="var(--down)"/><line x1="393.3" y1="54.3" x2="393.3" y2="74.9" stroke="var(--up)" stroke-width="1"/><rect x="390.6" y="69.6" width="5.4" height="1.0" fill="var(--up)"/><line x1="401.1" y1="109.7" x2="401.1" y2="140.9" stroke="var(--down)" stroke-width="1"/><rect x="398.3" y="109.8" width="5.4" height="27.6" fill="var(--down)"/><line x1="408.8" y1="112.9" x2="408.8" y2="131.3" stroke="var(--up)" stroke-width="1"/><rect x="406.1" y="127.5" width="5.4" height="1.0" fill="var(--up)"/><line x1="416.6" y1="140.2" x2="416.6" y2="159.4" stroke="var(--up)" stroke-width="1"/><rect x="413.9" y="144.8" width="5.4" height="5.7" fill="var(--up)"/><line x1="424.4" y1="139.6" x2="424.4" y2="167.9" stroke="var(--down)" stroke-width="1"/><rect x="421.7" y="157.7" width="5.4" height="1.9" fill="var(--down)"/><line x1="432.2" y1="119.7" x2="432.2" y2="141.4" stroke="var(--down)" stroke-width="1"/><rect x="429.5" y="122.1" width="5.4" height="14.8" fill="var(--down)"/><line x1="440.0" y1="124.0" x2="440.0" y2="165.9" stroke="var(--down)" stroke-width="1"/><rect x="437.3" y="130.4" width="5.4" height="33.4" fill="var(--down)"/><line x1="447.8" y1="142.3" x2="447.8" y2="172.1" stroke="var(--down)" stroke-width="1"/><rect x="445.0" y="155.1" width="5.4" height="15.9" fill="var(--down)"/><line x1="455.5" y1="126.4" x2="455.5" y2="140.6" stroke="var(--up)" stroke-width="1"/><rect x="452.8" y="127.5" width="5.4" height="10.2" fill="var(--up)"/><line x1="463.3" y1="128.4" x2="463.3" y2="162.4" stroke="var(--down)" stroke-width="1"/><rect x="460.6" y="129.6" width="5.4" height="22.8" fill="var(--down)"/><line x1="471.1" y1="189.0" x2="471.1" y2="214.8" stroke="var(--down)" stroke-width="1"/><rect x="468.4" y="196.0" width="5.4" height="4.1" fill="var(--down)"/><polyline points="81.9,221.9 89.7,212.0 97.5,205.5 105.3,205.4 113.1,203.2 120.9,200.3 128.6,201.1 136.4,201.3 144.2,199.5 152.0,199.3 159.8,197.3 167.6,197.0 175.3,189.0 183.1,182.8 190.9,179.2 198.7,173.4 206.5,163.3 214.3,156.0 222.0,151.6 229.8,148.6 237.6,149.1 245.4,149.9 253.2,155.9 261.0,156.3 268.7,154.0 276.5,151.3 284.3,149.1 292.1,144.3 299.9,140.0 307.7,135.4 315.4,129.6 323.2,120.0 331.0,108.5 338.8,98.8 346.6,85.7 354.4,75.8 362.1,68.7 369.9,64.6 377.7,61.0 385.5,59.9 393.3,56.1 401.1,61.1 408.8,66.5 416.6,73.6 424.4,86.9 432.2,98.4 440.0,112.3 447.8,124.5 455.5,132.2 463.3,139.0 471.1,152.1" fill="none" stroke="var(--ma10)" stroke-width="1.6"/><polyline points="159.8,209.6 167.6,204.5 175.3,197.3 183.1,194.1 190.9,191.2 198.7,186.8 206.5,182.2 214.3,178.6 222.0,175.5 229.8,173.9 237.6,173.2 245.4,173.4 253.2,172.4 261.0,169.5 268.7,166.6 276.5,162.4 284.3,156.2 292.1,150.1 299.9,145.8 307.7,142.0 315.4,139.3 323.2,135.0 331.0,132.2 338.8,127.6 346.6,119.9 354.4,113.6 362.1,108.9 369.9,104.5 377.7,100.5 385.5,97.6 393.3,92.8 401.1,90.6 408.8,87.5 416.6,86.2 424.4,86.3 432.2,87.1 440.0,90.5 447.8,94.5 455.5,96.6 463.3,99.5 471.1,104.1" fill="none" stroke="var(--gold)" stroke-width="1.6"/><line x1="8" y1="275.7" x2="479" y2="275.7" stroke="var(--down)" stroke-dasharray="5 4" stroke-width="1.3"/><text x="483" y="281.7" fill="var(--down)" font-size="19" font-weight="700">目標 43,280</text><line x1="8" y1="162.3" x2="479" y2="162.3" stroke="var(--text)" stroke-dasharray="5 4" stroke-width="1.3"/><text x="483" y="168.3" fill="var(--text)" font-size="19" font-weight="700">進場 46,312</text><line x1="8" y1="105.6" x2="479" y2="105.6" stroke="var(--orange)" stroke-dasharray="5 4" stroke-width="1.3"/><text x="483" y="111.6" fill="var(--orange)" font-size="19" font-weight="700">停損 47,828</text><text x="8" y="338" fill="var(--muted)" font-size="16">08/03</text><text x="475" y="338" fill="var(--muted)" font-size="16" text-anchor="end">10/30</text></svg></div>
+      <div class="mas"><div><span class="label">MA5</span><b>46,295</b></div><div><span class="label">MA10</span><b>46,585</b></div><div><span class="label">MA20</span><b>47,869</b></div><div><span class="label">MA60</span><b>46,614</b></div></div>
     </section>
-    <div id="app"><div class="loading">正在讀取正式 Futures Radar 資料…</div></div>
-    <section id="charts" class="panel">
-      <h2>技術線圖</h2>
-      <div class="loading">技術線圖載入中</div>
-    </section>
-    <section class="panel">
-      <h2>資料驗證</h2>
-      <details>
-        <summary>展開驗證詳情</summary>
-        <pre id="integrity"></pre>
-      </details>
-    </section>
-    <footer>資料僅供市場研究與資訊整理，不構成投資建議。期貨具高槓桿與高風險，交易前請自行評估風險承受能力。</footer>
-  </main>
-  <script>
-    const presentationSource = './futures_radar_presentation.json';
-    const chartSource = './futures_radar_chart_data.json';
-    const technicalSource = './futures_radar_current_technical_structure.json';
-    function esc(value) {
-      return String(value ?? '').replace(/[&<>\"\']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[char]));
-    }
-    function fmt(value) {
-      return Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-US', { maximumFractionDigits: 2 }) : 'N/A';
-    }
-    function field(label, value) {
-      return `<div class="label">${esc(label)}</div><div class="value">${esc(value ?? '資料累積中')}</div>`;
-    }
-    function taipeiDateFromTimestamp(value) {
-      if (!value) return null;
-      const date = new Date(value);
-      if (!Number.isFinite(date.getTime())) return null;
-      const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(date);
-      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-      return `${map.year}-${map.month}-${map.day}`;
-    }
-    function currentPairAssessment(p) {
-      const today = taipeiDateFromTimestamp(new Date().toISOString());
-      if (!p || p.pair_status !== 'PAIR_COMPLETE') {
-        return { current: false, status: 'DATA_PENDING', reason: 'PAIR_INCOMPLETE', today };
-      }
-      const markets = ['TXF', 'ES'].map((k) => p.markets?.[k]);
-      if (markets.some((x) => !x)) {
-        return { current: false, status: 'DATA_PENDING', reason: 'MARKET_MISSING', today };
-      }
-      const dates = markets.map((x) => taipeiDateFromTimestamp(x.analysis_window_start));
-      if (dates.some((x) => !x)) {
-        return { current: false, status: 'DATA_PENDING', reason: 'CANONICAL_DATE_UNRESOLVED', today };
-      }
-      if (dates[0] !== dates[1] || dates[0] !== today || p.radar_date !== dates[0] || p.pairing?.canonical_shadow_date !== dates[0]) {
-        return { current: false, status: 'DATA_PENDING', reason: 'STALE_OR_MISMATCHED_CANONICAL_DATE', today, dates };
-      }
-      if (markets.some((x) => !x.snapshot_hash || x.scheduler_evidence?.provenance_confidence !== 'PROVEN' || !x.scheduler_evidence?.execution_id || !x.scheduler_evidence?.attempt_id)) {
-        return { current: false, status: 'DATA_PENDING', reason: 'PROVENANCE_OR_HASH_UNRESOLVED', today, dates };
-      }
-      return { current: true, status: 'CURRENT', reason: null, today, dates };
-    }
-    async function renderHistoricalCharts(p) {
-      const panel = document.getElementById('charts');
-      if (!panel) return false;
-      try {
-        const c = await getJson(chartSource);
-        const txfMarket = c?.markets?.TXF;
-        const esMarket = c?.markets?.ES;
-        const txfValues = Array.isArray(txfMarket?.bars) ? txfMarket.bars.map((bar) => Number(bar.close ?? bar.last ?? bar.value)).filter((value) => Number.isFinite(value)) : [];
-        const esValues = Array.isArray(esMarket?.bars) ? esMarket.bars.map((bar) => Number(bar.close ?? bar.last ?? bar.value)).filter((value) => Number.isFinite(value)) : [];
-        const makeSvg = (key, values) => {
-          const min = values.length ? Math.min(...values) : 0;
-          const max = values.length ? Math.max(...values) : 1;
-          const spread = max - min || 1;
-          const points = values.length ? values.map((value, index) => {
-            const x = (index / Math.max(values.length - 1, 1)) * 300;
-            const y = 118 - ((value - min) / spread) * 90;
-            return `${x.toFixed(1)},${y.toFixed(1)}`;
-          }).join(' ') : '0,118 300,118';
-          const color = key === 'TXF' ? '#62b0ff' : '#ff9f68';
-          const lastY = values.length ? (118 - ((Number(values[values.length - 1]) - min) / spread) * 90).toFixed(1) : 118;
-          return `<svg class="chart" viewBox="0 0 300 130" preserveAspectRatio="none" aria-label="${key} historical chart" role="img"><polyline fill="none" stroke="${color}" stroke-width="2" points="${points}"/><circle cx="300" cy="${lastY}" r="3" fill="${color}"/></svg>`;
-        };
-        const txfCard = chartCard('TXF', txfMarket, 'HISTORICAL / LAST VALID');
-        const esCard = chartCard('ES', esMarket, 'HISTORICAL / LAST VALID');
-        const txfHtml = txfCard.replace(/<div class="chart-box">/, `<div class="chart-box">${makeSvg('TXF', txfValues)}`);
-        const esHtml = esCard.replace(/<div class="chart-box">/, `<div class="chart-box">${makeSvg('ES', esValues)}`);
-        panel.innerHTML = '<h2>技術線圖</h2>' + txfHtml + esHtml;
-        return true;
-      } catch (error) {
-        panel.innerHTML = '<h2>技術線圖</h2><div class="error" data-current-state="DATA_PENDING">HISTORICAL / LAST VALID｜保持技術分析區可見，並明示為非當前歷史資料，避免誤將舊圖表當成今日結構。</div>';
-        return false;
-      }
-    }
-    function chartCard(key, market, technicalState) {
-      const label = key === 'TXF' ? '台指期 TXF' : 'E-mini S&P 500 ES';
-      const currentText = technicalState === 'CURRENT_FOR_RADAR_DATE' ? 'CURRENT_FOR_RADAR_DATE' : 'HISTORICAL / LAST VALID';
-      const last = Number(market?.bars?.[market.bars.length - 1]?.close ?? 0);
-      return `<section class="card"><h2>${esc(label)}｜60m 技術線圖</h2><p class="muted">資料日期：${esc(market?.chart_source_date || '—')}｜技術結構狀態：${esc(currentText)}</p><div class="market-layout"><div class="chart-box"><div class="chart-title"><span>60m Candlestick｜X 軸時間・Y 軸點數</span><span>Last ${esc(fmt(last))}</span></div><div class="error">HISTORICAL / LAST VALID｜技術分析區保持可見，並明示為非當前歷史資料。</div></div><div><div class="metric-grid">${[['Last', last], ['Source date', market?.chart_source_date || '—']].map(([labelName, value]) => `<div class="metric"><small>${esc(labelName)}</small><strong>${esc(fmt(value))}</strong></div>`).join('')}</div></div></div></section>`;
-    }
-    function card(c) {
-      c = c || {};
-      const gate = window.__currentPairAssessment || { current: false, status: 'DATA_PENDING', reason: 'PAIR_VALIDATION_NOT_RUN' };
-      if (gate.current) {
-        return `<section class="card"><h2>${esc(c.display_name || '期貨市場')}</h2><p>${c.is_current ? '當前正式 R1' : '本日無有效新 R1'}｜資料日期：${esc(c.business_date || '—')}</p><div class="kv">${field('Prediction ID', c.prediction_id)}${field('方向', c.direction)}${field('狀態', c.strategy_status)}${field('Entry', c.entry)}${field('Stop', c.stop)}${field('Target', c.target)}${field('RR', c.rr)}${field('Review', c.review_status || '資料累積中')}</div></section>`;
-      }
-      const latest = c.canonical_shadow_date || c.analysis_window_start || c.business_date || 'CANONICAL_DATE_UNRESOLVED';
-      const hist = c.historical_reference || {};
-      return `<section class="card pending-card" data-current-state="DATA_PENDING"><h2>${esc(c.display_name || '期貨市場')}</h2><p class="warn">期貨雷達資料更新中｜今日正式 R1 尚未完成</p><p>最新有效資料日期：${esc(latest)}（歷史資料，非當前訊號）</p><p>狀態：${esc(gate.reason || 'DATA_PENDING')}</p><details><summary>歷史紀錄 / provenance</summary><div class="kv">${field('歷史 Prediction ID', hist.prediction_id || c.prediction_id)}${field('Canonical date', hist.canonical_shadow_date || c.canonical_shadow_date)}${field('Snapshot hash', hist.snapshot_hash || c.snapshot_hash)}</div></details></section>`;
-    }
-    async function getJson(url) {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 10000);
-      try {
-        const response = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return await response.json();
-      } finally {
-        clearTimeout(timer);
-      }
-    }
-    async function load() {
-      try {
-        const p = await getJson(presentationSource);
-        if (!p?.radar_date || !p.markets?.TXF || !p.markets?.ES) {
-          throw new Error('正式資料 schema 不完整');
-        }
-        window.__currentPairAssessment = currentPairAssessment(p);
-        document.getElementById('radar-date').textContent = 'Radar date：' + p.radar_date + '｜今日預期：' + (window.__currentPairAssessment.today || '—');
-        const badge = document.getElementById('readiness');
-        badge.textContent = window.__currentPairAssessment.current ? 'READY' : 'DATA_PENDING';
-        if (!window.__currentPairAssessment.current) badge.classList.add('pending');
-        document.getElementById('pair-warning').textContent = '今日有效 TXF + ES R1 尚未完成同一 canonical date 配對；未使用歷史訊號補位。';
-        document.getElementById('app').innerHTML = '<div class="grid">' + ['TXF', 'ES'].map((key) => card(p.markets[key])).join('') + '</div>';
-        const charts=document.getElementById('charts');
-        if(!window.__currentPairAssessment.current){
-          if (charts) {
-            await renderHistoricalCharts(p);
-          }
-          document.getElementById('integrity').textContent = JSON.stringify({
-            current_pair_gate: window.__currentPairAssessment,
-            pair_status: p.pair_status,
-            presentation_date: p.radar_date,
-          }, null, 2);
-          return;
-        }
-        if (charts) {
-          try {
-            const c = await getJson(chartSource);
-            const txfState = 'CURRENT_FOR_RADAR_DATE';
-            const esState = 'CURRENT_FOR_RADAR_DATE';
-            charts.innerHTML = '<h2>技術線圖</h2>' + chartCard('TXF', c?.markets?.TXF, txfState) + chartCard('ES', c?.markets?.ES, esState);
-            document.getElementById('integrity').textContent = JSON.stringify({
-              current_pair_gate: window.__currentPairAssessment,
-              pair_status: p.pair_status,
-              chart_data_hash: c?.chart_data_hash || 'pending',
-              technical_structure: { TXF: txfState, ES: esState },
-            }, null, 2);
-          } catch (chartError) {
-            charts.innerHTML = '<h2>技術線圖</h2><div class="error">HISTORICAL / LAST VALID｜技術分析區保持可見，並明示為非當前歷史資料。</div>';
-            document.getElementById('integrity').textContent = JSON.stringify({ current_pair_gate: window.__currentPairAssessment, pair_status: p.pair_status, chart_error: chartError.message }, null, 2);
-          }
-        }
-      } catch (error) {
-        document.getElementById('app').innerHTML = '<div class="error">期貨雷達資料暫時無法取得：' + esc(error.message) + '</div>';
-        const charts = document.getElementById('charts');
-        if (charts) {
-          charts.innerHTML = '<div class="error">資料未驗證，請等待正式技術結構更新。</div>';
-        }
-        document.getElementById('integrity').textContent = '資料暫時無法取得，請稍後再試。';
-      }
-    }
-    load();
-  </script>
-</body>
-</html>
+    <section class="card">
+      <div class="head"><h2>S&amp;P500</h2><span class="pill down">偏空</span></div>
+      <p class="muted">資料截至 2026-10-30｜CME Globex 日線（Yahoo ES 連續合約）</p>
+      <div class="price"><b>7,614.00</b><span class="down">-140.25（-1.81%）</span></div>
+      <p>跌破 MA20（7,774.34），偏空看待。</p>
+      <div class="levels">
+        <div><span class="label">進場參考</span><b>7,708.25</b></div>
+        <div><span class="label">停損</span><b class="stop">7,849.75</b></div>
+        <div><span class="label">目標</span><b class="down">7,425.50</b></div>
+      </div>
+      <div class="chart"><svg viewBox="0 0 640 346" role="img" aria-label="S&P500 近 60 日 K 線與進場、停損、目標"><line x1="11.9" y1="84.2" x2="11.9" y2="121.3" stroke="var(--up)" stroke-width="1"/><rect x="9.2" y="88.4" width="5.4" height="27.1" fill="var(--up)"/><line x1="19.7" y1="77.4" x2="19.7" y2="98.6" stroke="var(--up)" stroke-width="1"/><rect x="17.0" y="90.2" width="5.4" height="1.0" fill="var(--up)"/><line x1="27.5" y1="78.6" x2="27.5" y2="113.7" stroke="var(--down)" stroke-width="1"/><rect x="24.7" y="89.3" width="5.4" height="18.6" fill="var(--down)"/><line x1="35.2" y1="79.8" x2="35.2" y2="107.3" stroke="var(--up)" stroke-width="1"/><rect x="32.5" y="94.0" width="5.4" height="8.8" fill="var(--up)"/><line x1="43.0" y1="52.9" x2="43.0" y2="97.8" stroke="var(--up)" stroke-width="1"/><rect x="40.3" y="62.5" width="5.4" height="31.8" fill="var(--up)"/><line x1="50.8" y1="56.9" x2="50.8" y2="78.3" stroke="var(--down)" stroke-width="1"/><rect x="48.1" y="61.0" width="5.4" height="12.1" fill="var(--down)"/><line x1="58.6" y1="61.3" x2="58.6" y2="98.3" stroke="var(--down)" stroke-width="1"/><rect x="55.9" y="70.6" width="5.4" height="24.5" fill="var(--down)"/><line x1="66.4" y1="94.0" x2="66.4" y2="130.5" stroke="var(--down)" stroke-width="1"/><rect x="63.7" y="96.7" width="5.4" height="31.5" fill="var(--down)"/><line x1="74.2" y1="97.5" x2="74.2" y2="137.8" stroke="var(--up)" stroke-width="1"/><rect x="71.4" y="119.1" width="5.4" height="9.1" fill="var(--up)"/><line x1="81.9" y1="108.5" x2="81.9" y2="162.3" stroke="var(--down)" stroke-width="1"/><rect x="79.2" y="116.7" width="5.4" height="42.7" fill="var(--down)"/><line x1="89.7" y1="128.2" x2="89.7" y2="160.2" stroke="var(--up)" stroke-width="1"/><rect x="87.0" y="142.0" width="5.4" height="13.5" fill="var(--up)"/><line x1="97.5" y1="134.7" x2="97.5" y2="163.9" stroke="var(--down)" stroke-width="1"/><rect x="94.8" y="140.6" width="5.4" height="14.4" fill="var(--down)"/><line x1="105.3" y1="128.2" x2="105.3" y2="160.8" stroke="var(--up)" stroke-width="1"/><rect x="102.6" y="141.5" width="5.4" height="9.7" fill="var(--up)"/><line x1="113.1" y1="130.5" x2="113.1" y2="154.4" stroke="var(--down)" stroke-width="1"/><rect x="110.4" y="141.8" width="5.4" height="1.0" fill="var(--down)"/><line x1="120.9" y1="103.1" x2="120.9" y2="135.0" stroke="var(--up)" stroke-width="1"/><rect x="118.1" y="111.0" width="5.4" height="12.4" fill="var(--up)"/><line x1="128.6" y1="86.8" x2="128.6" y2="129.6" stroke="var(--down)" stroke-width="1"/><rect x="125.9" y="116.3" width="5.4" height="7.1" fill="var(--down)"/><line x1="136.4" y1="122.2" x2="136.4" y2="152.0" stroke="var(--down)" stroke-width="1"/><rect x="133.7" y="122.5" width="5.4" height="14.8" fill="var(--down)"/><line x1="144.2" y1="131.9" x2="144.2" y2="184.2" stroke="var(--down)" stroke-width="1"/><rect x="141.5" y="135.9" width="5.4" height="35.4" fill="var(--down)"/><line x1="152.0" y1="142.0" x2="152.0" y2="186.0" stroke="var(--up)" stroke-width="1"/><rect x="149.3" y="150.9" width="5.4" height="19.1" fill="var(--up)"/><line x1="159.8" y1="96.4" x2="159.8" y2="160.2" stroke="var(--up)" stroke-width="1"/><rect x="157.1" y="103.6" width="5.4" height="49.2" fill="var(--up)"/><line x1="167.6" y1="97.7" x2="167.6" y2="129.6" stroke="var(--down)" stroke-width="1"/><rect x="164.8" y="106.6" width="5.4" height="16.8" fill="var(--down)"/><line x1="175.3" y1="119.4" x2="175.3" y2="153.5" stroke="var(--down)" stroke-width="1"/><rect x="172.6" y="127.3" width="5.4" height="21.2" fill="var(--down)"/><line x1="183.1" y1="142.0" x2="183.1" y2="179.8" stroke="var(--down)" stroke-width="1"/><rect x="180.4" y="148.2" width="5.4" height="22.5" fill="var(--down)"/><line x1="190.9" y1="157.1" x2="190.9" y2="206.0" stroke="var(--down)" stroke-width="1"/><rect x="188.2" y="169.1" width="5.4" height="29.1" fill="var(--down)"/><line x1="198.7" y1="146.7" x2="198.7" y2="200.7" stroke="var(--up)" stroke-width="1"/><rect x="196.0" y="161.2" width="5.4" height="36.3" fill="var(--up)"/><line x1="206.5" y1="165.8" x2="206.5" y2="201.0" stroke="var(--up)" stroke-width="1"/><rect x="203.8" y="182.1" width="5.4" height="9.5" fill="var(--up)"/><line x1="214.3" y1="177.1" x2="214.3" y2="211.3" stroke="var(--down)" stroke-width="1"/><rect x="211.5" y="178.5" width="5.4" height="25.3" fill="var(--down)"/><line x1="222.0" y1="177.9" x2="222.0" y2="252.2" stroke="var(--down)" stroke-width="1"/><rect x="219.3" y="199.3" width="5.4" height="24.2" fill="var(--down)"/><line x1="229.8" y1="164.2" x2="229.8" y2="226.6" stroke="var(--up)" stroke-width="1"/><rect x="227.1" y="173.0" width="5.4" height="49.9" fill="var(--up)"/><line x1="237.6" y1="154.7" x2="237.6" y2="181.9" stroke="var(--up)" stroke-width="1"/><rect x="234.9" y="162.5" width="5.4" height="12.3" fill="var(--up)"/><line x1="245.4" y1="47.6" x2="245.4" y2="128.4" stroke="var(--up)" stroke-width="1"/><rect x="242.7" y="55.9" width="5.4" height="67.5" fill="var(--up)"/><line x1="253.2" y1="46.8" x2="253.2" y2="69.8" stroke="var(--up)" stroke-width="1"/><rect x="250.5" y="56.9" width="5.4" height="1.1" fill="var(--up)"/><line x1="261.0" y1="50.0" x2="261.0" y2="101.1" stroke="var(--down)" stroke-width="1"/><rect x="258.2" y="58.0" width="5.4" height="34.8" fill="var(--down)"/><line x1="268.7" y1="86.2" x2="268.7" y2="132.3" stroke="var(--down)" stroke-width="1"/><rect x="266.0" y="91.4" width="5.4" height="4.7" fill="var(--down)"/><line x1="276.5" y1="67.2" x2="276.5" y2="107.3" stroke="var(--up)" stroke-width="1"/><rect x="273.8" y="73.9" width="5.4" height="27.1" fill="var(--up)"/><line x1="284.3" y1="74.3" x2="284.3" y2="121.0" stroke="var(--down)" stroke-width="1"/><rect x="281.6" y="78.6" width="5.4" height="29.8" fill="var(--down)"/><line x1="292.1" y1="93.9" x2="292.1" y2="129.3" stroke="var(--down)" stroke-width="1"/><rect x="289.4" y="108.5" width="5.4" height="8.8" fill="var(--down)"/><line x1="299.9" y1="87.1" x2="299.9" y2="133.4" stroke="var(--down)" stroke-width="1"/><rect x="297.2" y="113.1" width="5.4" height="14.2" fill="var(--down)"/><line x1="307.7" y1="95.7" x2="307.7" y2="153.2" stroke="var(--up)" stroke-width="1"/><rect x="304.9" y="122.2" width="5.4" height="2.7" fill="var(--up)"/><line x1="315.4" y1="70.0" x2="315.4" y2="122.6" stroke="var(--up)" stroke-width="1"/><rect x="312.7" y="89.9" width="5.4" height="32.2" fill="var(--up)"/><line x1="323.2" y1="47.4" x2="323.2" y2="100.2" stroke="var(--up)" stroke-width="1"/><rect x="320.5" y="60.3" width="5.4" height="27.1" fill="var(--up)"/><line x1="331.0" y1="17.1" x2="331.0" y2="58.6" stroke="var(--up)" stroke-width="1"/><rect x="328.3" y="31.4" width="5.4" height="25.6" fill="var(--up)"/><line x1="338.8" y1="25.0" x2="338.8" y2="66.6" stroke="var(--down)" stroke-width="1"/><rect x="336.1" y="26.8" width="5.4" height="17.4" fill="var(--down)"/><line x1="346.6" y1="40.9" x2="346.6" y2="86.5" stroke="var(--down)" stroke-width="1"/><rect x="343.9" y="45.4" width="5.4" height="20.9" fill="var(--down)"/><line x1="354.4" y1="33.5" x2="354.4" y2="65.9" stroke="var(--up)" stroke-width="1"/><rect x="351.6" y="40.0" width="5.4" height="23.8" fill="var(--up)"/><line x1="362.1" y1="23.5" x2="362.1" y2="48.2" stroke="var(--down)" stroke-width="1"/><rect x="359.4" y="32.0" width="5.4" height="9.1" fill="var(--down)"/><line x1="369.9" y1="37.4" x2="369.9" y2="55.3" stroke="var(--up)" stroke-width="1"/><rect x="367.2" y="42.4" width="5.4" height="1.0" fill="var(--up)"/><line x1="377.7" y1="27.9" x2="377.7" y2="111.9" stroke="var(--down)" stroke-width="1"/><rect x="375.0" y="42.1" width="5.4" height="52.1" fill="var(--down)"/><line x1="385.5" y1="75.1" x2="385.5" y2="126.3" stroke="var(--up)" stroke-width="1"/><rect x="382.8" y="81.6" width="5.4" height="13.8" fill="var(--up)"/><line x1="393.3" y1="70.4" x2="393.3" y2="151.2" stroke="var(--down)" stroke-width="1"/><rect x="390.6" y="83.0" width="5.4" height="51.2" fill="var(--down)"/><line x1="401.1" y1="92.4" x2="401.1" y2="150.6" stroke="var(--up)" stroke-width="1"/><rect x="398.3" y="115.8" width="5.4" height="33.3" fill="var(--up)"/><line x1="408.8" y1="81.3" x2="408.8" y2="134.0" stroke="var(--up)" stroke-width="1"/><rect x="406.1" y="103.3" width="5.4" height="8.8" fill="var(--up)"/><line x1="416.6" y1="68.7" x2="416.6" y2="105.8" stroke="var(--up)" stroke-width="1"/><rect x="413.9" y="76.0" width="5.4" height="9.2" fill="var(--up)"/><line x1="424.4" y1="76.9" x2="424.4" y2="150.8" stroke="var(--down)" stroke-width="1"/><rect x="421.7" y="78.0" width="5.4" height="56.0" fill="var(--down)"/><line x1="432.2" y1="128.1" x2="432.2" y2="167.9" stroke="var(--down)" stroke-width="1"/><rect x="429.5" y="132.9" width="5.4" height="28.1" fill="var(--down)"/><line x1="440.0" y1="112.8" x2="440.0" y2="165.9" stroke="var(--up)" stroke-width="1"/><rect x="437.3" y="127.9" width="5.4" height="14.8" fill="var(--up)"/><line x1="447.8" y1="92.7" x2="447.8" y2="136.8" stroke="var(--up)" stroke-width="1"/><rect x="445.0" y="101.4" width="5.4" height="26.2" fill="var(--up)"/><line x1="455.5" y1="64.4" x2="455.5" y2="106.3" stroke="var(--up)" stroke-width="1"/><rect x="452.8" y="86.3" width="5.4" height="13.0" fill="var(--up)"/><line x1="463.3" y1="92.1" x2="463.3" y2="130.9" stroke="var(--down)" stroke-width="1"/><rect x="460.6" y="95.7" width="5.4" height="8.2" fill="var(--down)"/><line x1="471.1" y1="128.8" x2="471.1" y2="222.5" stroke="var(--down)" stroke-width="1"/><rect x="468.4" y="131.1" width="5.4" height="57.7" fill="var(--down)"/><polyline points="81.9,101.8 89.7,107.2 97.5,113.6 105.3,117.0 113.1,121.9 120.9,126.7 128.6,131.7 136.4,136.0 144.2,140.3 152.0,143.5 159.8,137.9 167.6,136.0 175.3,135.4 183.1,138.3 190.9,143.8 198.7,148.8 206.5,154.7 214.3,161.4 222.0,166.6 229.8,168.8 237.6,174.7 245.4,167.9 253.2,158.8 261.0,151.0 268.7,140.8 276.5,132.1 284.3,124.7 292.1,116.0 299.9,106.4 307.7,101.3 315.4,94.1 323.2,94.5 331.0,92.0 338.8,87.1 346.6,84.1 354.4,80.7 362.1,74.0 369.9,66.5 377.7,63.2 385.5,59.1 393.3,63.6 401.1,69.1 408.8,76.3 416.6,79.5 424.4,86.2 432.2,98.3 440.0,107.0 447.8,112.9 455.5,112.1 463.3,114.4 471.1,119.8" fill="none" stroke="var(--ma10)" stroke-width="1.6"/><polyline points="159.8,119.8 167.6,121.6 175.3,124.5 183.1,127.6 190.9,132.9 198.7,137.8 206.5,143.2 214.3,148.7 222.0,153.4 229.8,156.1 237.6,156.3 245.4,152.0 253.2,147.1 261.0,144.6 268.7,142.3 276.5,140.5 284.3,139.7 292.1,138.7 299.9,136.5 307.7,135.1 315.4,134.4 323.2,131.2 331.0,125.4 338.8,119.0 346.6,112.5 354.4,106.4 362.1,99.3 369.9,91.3 377.7,84.8 385.5,80.2 393.3,78.8 401.1,81.8 408.8,84.1 416.6,83.3 424.4,85.2 432.2,89.5 440.0,90.5 447.8,89.7 455.5,87.7 463.3,86.8 471.1,91.7" fill="none" stroke="var(--gold)" stroke-width="1.6"/><line x1="8" y1="302.9" x2="479" y2="302.9" stroke="var(--down)" stroke-dasharray="5 4" stroke-width="1.3"/><text x="483" y="308.9" fill="var(--down)" font-size="19" font-weight="700">目標 7,425.50</text><line x1="8" y1="131.7" x2="479" y2="131.7" stroke="var(--text)" stroke-dasharray="5 4" stroke-width="1.3"/><text x="483" y="137.7" fill="var(--text)" font-size="19" font-weight="700">進場 7,708.25</text><line x1="8" y1="46.0" x2="479" y2="46.0" stroke="var(--orange)" stroke-dasharray="5 4" stroke-width="1.3"/><text x="483" y="52.0" fill="var(--orange)" font-size="19" font-weight="700">停損 7,849.75</text><text x="8" y="338" fill="var(--muted)" font-size="16">08/07</text><text x="475" y="338" fill="var(--muted)" font-size="16" text-anchor="end">10/30</text></svg></div>
+      <div class="mas"><div><span class="label">MA5</span><b>7,724.85</b></div><div><span class="label">MA10</span><b>7,727.85</b></div><div><span class="label">MA20</span><b>7,774.34</b></div><div><span class="label">MA60</span><b>7,735.33</b></div></div>
+    </section></div>
+  <footer>資料僅供市場研究與資訊整理，不構成投資建議。期貨具高槓桿與高風險。連續合約轉倉可能影響均線；本片不是 Forward Prediction 或交易指令。</footer>
+</main></body></html>
