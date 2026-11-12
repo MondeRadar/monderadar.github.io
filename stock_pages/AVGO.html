@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVGO AVGO｜MONDE RADAR</title>
+  <style>
+    :root { --bg:#080d1c; --panel:#111827; --panel2:#0f172a; --line:rgba(255,255,255,.12); --gold:#ffd166; --text:#f8fafc; --muted:#94a3b8; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Microsoft JhengHei",Arial,sans-serif; background:radial-gradient(circle at top,#18213a 0,#080d1c 58%); color:var(--text); }
+    .wrap { max-width:1120px; margin:auto; padding:36px 20px 28px; }
+    .brand { text-align:center; margin-bottom:22px; }
+    .brand h1 { margin:0; font-size:42px; letter-spacing:.08em; }
+    .brand p { color:var(--gold); font-weight:800; letter-spacing:.12em; }
+    .nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:18px 0 26px; }
+    .nav a { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:#e5e7eb; text-decoration:none; font-weight:700; }
+    .nav a:hover { background:rgba(255,209,102,.18); color:var(--gold); }
+    .hero, .card { background:linear-gradient(180deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:18px; padding:24px; margin:20px 0; line-height:1.8; box-shadow:0 8px 24px rgba(0,0,0,.24); }
+    .hero { background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(56,189,248,.10)); border-radius:24px; }
+    h1 { font-size:clamp(32px,6vw,52px); margin:10px 0; }
+    h2 { color:var(--gold); font-size:22px; margin:0 0 18px; }
+    h3 { color:#e0f2fe; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+    .stock-card { display:block; color:var(--text); text-decoration:none; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:16px; }
+    .stock-card:hover { border-color:var(--gold); }
+    .metric { display:flex; justify-content:space-between; gap:18px; border-bottom:1px solid rgba(255,255,255,.08); padding:8px 0; }
+    .metric span:first-child { color:#dbeafe; }
+    .metric span:last-child { color:var(--gold); font-weight:700; text-align:right; }
+    .tag { display:inline-block; margin:4px 6px 4px 0; padding:4px 10px; border-radius:999px; background:rgba(255,209,102,.14); color:var(--gold); border:1px solid rgba(255,209,102,.24); }
+    input { width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--line); background:#020617; color:var(--text); font-size:18px; }
+    .btn { display:inline-block; margin:8px 8px 0 0; padding:12px 20px; border-radius:999px; background:var(--gold); color:#111; text-decoration:none; font-weight:bold; }
+    .note { color:var(--muted); font-size:14px; }
+    .footer { margin-top:34px; padding:22px; border-top:1px solid rgba(255,255,255,.1); color:var(--muted); text-align:center; font-size:14px; }
+    @media (max-width:760px) { .wrap{padding:24px 14px;} .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;} .metric{display:block;} .metric span{display:block;text-align:left!important;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><h1>MONDE RADAR</h1><p>孟德雷達</p><div>掌握市場脈動</div></div>
+    <nav class="nav">
+      <a href="../index.html">首頁</a>
+      <a href="../today.html">台股</a>
+      <a href="../us.html">美股</a>
+      <a href="../daytrade.html">當沖</a>
+      <a href="../stock.html">個股評分</a>
+      <a href="../weekly.html">籌碼週報</a>
+      <a href="../weekly_archive.html">歷史週報</a>
+      <a href="../premium.html">Premium</a>
+      <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+    <style>
+.pm{border-top:1px solid rgba(255,255,255,.08);padding:9px 0}.pm span{display:block;color:#94a3b8;font-size:14px}
+.pm b{display:block;color:#f8fafc;font-size:18px}.pm small{display:block;color:#94a3b8;font-size:12px;line-height:1.5}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.pbar{height:6px;background:#1d2740;border-radius:4px;margin:2px 0 8px}
+.pbar i{display:block;height:100%;background:#ffd166;border-radius:4px}.price{font-size:34px;font-weight:800}
+.up{color:#ff6b6b}.down{color:#3ecf8e}.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:6px;margin-left:6px}
+.ok{background:#12382a;color:#3ecf8e}.warn{background:#3a2a00;color:#ffd166}.legend{font-size:12px;color:#94a3b8}
+.legend b{display:inline-block;width:14px;height:3px;margin:0 4px 3px 10px;vertical-align:middle}
+details{border-top:1px solid rgba(255,255,255,.08);padding:9px 0}details p{color:#94a3b8;font-size:14px;margin:6px 0}
+.disc{color:#94a3b8;font-size:13px;white-space:pre-line}svg{width:100%;height:auto}
+</style><section class="hero"><h1>AVGO AVGO</h1>
+      <p class="note">股票（US）・價格資料日期 2026-11-12<span class="badge ok">資料正常</span></p>
+      <div><span class="price">364.36</span> <b class="up">+19.14（+5.54%）</b></div><div>出現在：<span class="tag">美股雷達</span></div></section>
+<div class="card"><h2>市場數據（2026-11-12）</h2><div class="pgrid">
+          <div class="pm"><span>成交量</span><b>43,502,367 股</b></div><div class="pm"><span>量比（對 20 日均量）</span><b>1.63 倍</b></div>
+          <div class="pm"><span>開盤／最高／最低</span><b>356.79／369.82／354.72</b></div>
+          <div class="pm"><span>52 週區間</span><b>288.98 – 493.32</b><small>距區間高點 -26.14%</small></div>
+        </div></div>
+<div class="card"><h2>近期走勢</h2><svg viewBox="0 0 340 175" role="img" aria-label="近120個交易日收盤價與均線"><path d="M20.0,96.2 L22.5,95.0 L25.0,93.7 L27.6,92.3 L30.1,90.8 L32.6,89.0 L35.1,87.5 L37.6,86.6 L40.2,86.1 L42.7,85.4 L45.2,84.6 L47.7,84.0 L50.3,83.3 L52.8,82.5 L55.3,81.7 L57.8,80.9 L60.3,80.1 L62.9,79.0 L65.4,78.2 L67.9,77.4 L70.4,76.4 L72.9,75.5 L75.5,74.8 L78.0,74.1 L80.5,73.4 L83.0,72.8 L85.5,72.4 L88.1,72.2 L90.6,72.0 L93.1,71.8 L95.6,71.5 L98.2,71.3 L100.7,71.4 L103.2,71.5 L105.7,71.7 L108.2,72.0 L110.8,72.3 L113.3,72.8 L115.8,73.2 L118.3,73.5 L120.8,73.8 L123.4,74.0 L125.9,74.2 L128.4,74.6 L130.9,75.2 L133.4,75.5 L136.0,76.0 L138.5,76.3 L141.0,76.3 L143.5,76.4 L146.1,76.5 L148.6,76.4 L151.1,76.3 L153.6,76.6 L156.1,76.6 L158.7,76.7 L161.2,76.9 L163.7,77.2 L166.2,77.5 L168.7,78.1 L171.3,78.8 L173.8,79.4 L176.3,80.2 L178.8,81.2 L181.3,82.4 L183.9,83.6 L186.4,84.9 L188.9,85.4 L191.4,85.6 L193.9,86.0 L196.5,86.3 L199.0,86.5 L201.5,86.7 L204.0,86.9 L206.6,87.3 L209.1,87.4 L211.6,88.0 L214.1,88.8 L216.6,89.4 L219.2,89.8 L221.7,90.1 L224.2,90.2 L226.7,90.2 L229.2,90.4 L231.8,90.7 L234.3,90.9 L236.8,91.0 L239.3,91.2 L241.8,91.5 L244.4,92.0 L246.9,92.5 L249.4,92.9 L251.9,93.0 L254.5,93.1 L257.0,93.5 L259.5,93.7 L262.0,93.8 L264.5,94.1 L267.1,94.5 L269.6,95.1 L272.1,95.8 L274.6,96.4 L277.1,96.9 L279.7,97.4 L282.2,97.9 L284.7,98.7 L287.2,99.4 L289.7,100.0 L292.3,100.7 L294.8,101.5 L297.3,102.6 L299.8,103.8 L302.4,104.9 L304.9,105.9 L307.4,107.3 L309.9,108.7 L312.4,109.6 L315.0,110.3 L317.5,110.6 L320.0,110.6" fill="none" stroke="#7c8aa5" stroke-width="1.6" stroke-dasharray="4 3"/><path d="M20.0,62.8 L22.5,62.1 L25.0,61.4 L27.6,60.3 L30.1,59.0 L32.6,56.8 L35.1,55.0 L37.6,55.2 L40.2,56.1 L42.7,57.3 L45.2,58.5 L47.7,60.2 L50.3,61.2 L52.8,63.2 L55.3,64.3 L57.8,65.8 L60.3,66.4 L62.9,66.6 L65.4,67.4 L67.9,68.5 L70.4,69.9 L72.9,71.4 L75.5,73.4 L78.0,76.0 L80.5,78.8 L83.0,82.6 L85.5,86.7 L88.1,88.2 L90.6,88.7 L93.1,89.0 L95.6,88.6 L98.2,87.7 L100.7,87.7 L103.2,87.4 L105.7,87.4 L108.2,87.4 L110.8,88.2 L113.3,89.3 L115.8,89.5 L118.3,88.9 L120.8,88.6 L123.4,88.5 L125.9,87.8 L128.4,87.5 L130.9,87.8 L133.4,87.2 L136.0,86.2 L138.5,85.5 L141.0,83.9 L143.5,82.9 L146.1,82.2 L148.6,81.3 L151.1,79.9 L153.6,79.0 L156.1,78.3 L158.7,76.8 L161.2,76.0 L163.7,75.5 L166.2,75.7 L168.7,76.9 L171.3,77.9 L173.8,78.4 L176.3,79.2 L178.8,80.0 L181.3,80.5 L183.9,81.1 L186.4,81.8 L188.9,82.6 L191.4,84.2 L193.9,86.0 L196.5,88.2 L199.0,90.6 L201.5,92.4 L204.0,94.2 L206.6,96.1 L209.1,98.0 L211.6,99.7 L214.1,101.5 L216.6,102.9 L219.2,103.5 L221.7,103.7 L224.2,103.9 L226.7,103.6 L229.2,103.7 L231.8,103.8 L234.3,104.5 L236.8,105.1 L239.3,105.6 L241.8,106.2 L244.4,107.0 L246.9,107.0 L249.4,106.9 L251.9,106.6 L254.5,106.2 L257.0,106.2 L259.5,106.1 L262.0,105.8 L264.5,105.1 L267.1,104.9 L269.6,105.0 L272.1,105.9 L274.6,106.9 L277.1,107.9 L279.7,108.5 L282.2,109.5 L284.7,110.5 L287.2,111.2 L289.7,111.7 L292.3,111.7 L294.8,111.6 L297.3,112.6 L299.8,114.0 L302.4,115.5 L304.9,117.3 L307.4,119.6 L309.9,122.0 L312.4,123.2 L315.0,124.1 L317.5,124.1 L320.0,123.4" fill="none" stroke="#5ab0ff" stroke-width="1.6"/><path d="M20.0,61.0 L22.5,61.1 L25.0,57.8 L27.6,43.9 L30.1,34.9 L32.6,20.0 L35.1,21.6 L37.6,63.1 L40.2,85.9 L42.7,78.4 L45.2,81.5 L47.7,95.3 L50.3,86.0 L52.8,88.4 L55.3,80.3 L57.8,92.1 L60.3,81.0 L62.9,68.3 L65.4,81.1 L67.9,89.3 L70.4,88.0 L72.9,90.2 L75.5,99.7 L78.0,94.6 L80.5,91.0 L83.0,96.8 L85.5,102.9 L88.1,93.6 L90.6,95.8 L93.1,83.4 L95.6,74.9 L98.2,75.7 L100.7,86.6 L103.2,83.2 L105.7,79.6 L108.2,93.3 L110.8,95.7 L113.3,90.7 L115.8,85.0 L118.3,77.9 L120.8,80.8 L123.4,88.1 L125.9,87.2 L128.4,88.8 L130.9,96.1 L133.4,84.0 L136.0,83.0 L138.5,81.0 L141.0,63.1 L143.5,63.1 L146.1,61.5 L148.6,56.5 L151.1,60.2 L153.6,64.6 L156.1,64.6 L158.7,63.4 L161.2,80.5 L163.7,80.9 L166.2,89.4 L168.7,101.5 L171.3,100.4 L173.8,97.4 L176.3,104.1 L178.8,105.5 L181.3,106.2 L183.9,95.3 L186.4,97.2 L188.9,96.1 L191.4,96.5 L193.9,98.2 L196.5,105.2 L199.0,104.7 L201.5,97.3 L204.0,100.2 L206.6,102.6 L209.1,101.8 L211.6,113.7 L214.1,117.5 L216.6,117.3 L219.2,112.0 L221.7,104.9 L224.2,100.9 L226.7,99.6 L229.2,106.2 L231.8,109.4 L234.3,107.7 L236.8,110.0 L239.3,106.1 L241.8,108.8 L244.4,114.0 L246.9,106.1 L249.4,101.0 L251.9,91.8 L254.5,91.4 L257.0,102.7 L259.5,101.7 L262.0,106.4 L264.5,104.6 L267.1,112.2 L269.6,113.6 L272.1,124.3 L274.6,120.3 L277.1,120.4 L279.7,118.1 L282.2,128.1 L284.7,129.2 L287.2,124.0 L289.7,114.9 L292.3,108.4 L294.8,113.1 L297.3,126.2 L299.8,128.8 L302.4,122.0 L304.9,126.6 L307.4,150.0 L309.9,148.5 L312.4,130.7 L315.0,122.1 L317.5,113.0 L320.0,99.7" fill="none" stroke="#ffd166" stroke-width="2.2"/><text x="20" y="170" fill="#94a3b8" font-size="10">2026-05-26</text><text x="320" y="170" fill="#94a3b8" font-size="10" text-anchor="end">2026-11-12</text><text x="322" y="24" fill="#94a3b8" font-size="10" text-anchor="end">479.9</text><text x="322" y="154" fill="#94a3b8" font-size="10" text-anchor="end">291.5</text></svg>
+          <div class="legend"><b style="background:#ffd166"></b>收盤價<b style="background:#5ab0ff"></b>MA20<b style="background:#7c8aa5"></b>MA60</div>
+          <div class="pgrid"><div class="pm"><span>近 5 日</span><b>+24.98%</b></div><div class="pm"><span>近 20 日</span><b>+5.82%</b></div><div class="pm"><span>近 60 日</span><b>+0.70%</b></div><div class="pm"><span>近 250 日</span><b>+7.97%</b></div></div></div>
+<div class="card"><h2>雷達評分</h2>
+      <p class="note">系統依公開的技術、籌碼與法人資料計算的分數，用來排序觀察名單，不是買賣建議。</p>
+      <div class="pm"><span>AI 總分</span><b>91 分</b></div><div class="pbar"><i style="width:91%"></i></div>
+      <div class="pgrid"><div class="pm"><span>技術分</span><b>此市場尚未提供此項資料</b></div><div class="pm"><span>籌碼分</span><b>此市場尚未提供此項資料</b></div>
+      <div class="pm"><span>法人分</span><b>此市場尚未提供此項資料</b></div><div class="pm"><span>近 30 日入選雷達</span><b>1 次</b><small>依每日個股評分紀錄統計</small></div></div></div>
+<div class="card"><h2>技術結構</h2><div class="pgrid"><div class="pm"><span>MA20</span><b>330.05</b><small>收盤高於 MA20（乖離 +10.40%）</small></div><div class="pm"><span>MA60</span><b>348.61</b><small>收盤高於 MA60（乖離 +4.52%）</small></div><div class="pm"><span>MA120</span><b>372.15</b><small>收盤低於 MA120（乖離 -2.09%）</small></div><div class="pm"><span>MA240</span><b>363.78</b><small>收盤高於 MA240（乖離 +0.16%）</small></div>
+          <div class="pm"><span>RSI 14</span><b>61.7</b><small>0–100，衡量近 14 日漲跌力道</small></div><div class="pm"><span>近 60 日價格區間</span><b>289.77 – 380.84</b><small>歷史價格區間</small></div></div></div>
+<div class="card"><h2>波動與風險指標</h2>
+          <div class="pm"><span>風險安全分</span><b>50.05 分</b><small>分數越高代表近期波動與回撤相對越小</small></div><div class="pbar"><i style="width:50%"></i></div>
+          <div class="pgrid"><div class="pm"><span>ATR 14</span><b>19.09</b><small>約為股價的 5.24%</small></div>
+          <div class="pm"><span>20 日年化波動</span><b>68.0%</b></div>
+          <div class="pm"><span>60 日最大回撤</span><b>22.6%</b></div>
+          <div class="pm"><span>當日跳空</span><b>+3.35%</b></div></div></div>
+<div class="card"><h2>指標怎麼看</h2>
+      <details><summary>均線（MA）</summary><p>過去 N 個交易日收盤價的平均。收盤價在均線之上或之下，只描述目前價格與過去平均的相對位置。</p></details>
+      <details><summary>ATR 平均真實區間</summary><p>衡量每天價格波動的幅度。數值越大，代表價格起伏越劇烈。</p></details>
+      <details><summary>RSI</summary><p>以近 14 日上漲與下跌幅度計算的 0–100 指標，用來描述近期漲跌力道的相對強弱。</p></details>
+      <details><summary>風險安全分</summary><p>綜合 ATR、波動率、最大回撤、均線乖離、量比與跳空計算，用來比較不同股票近期的波動程度。</p></details>
+      <details><summary>雷達評分</summary><p>依技術、籌碼與法人資料加權計算，用於排序，不代表未來表現。</p></details></div>
+<div class="card"><h2>資料狀態</h2>
+      <div class="pm"><span>價格與技術資料</span><b>最新一筆 2026-11-12</b><small>超過 10 天未更新時顯示「歷史資料延遲」並暫停延伸指標</small></div>
+      <div class="pm"><span>雷達評分</span><b>2026-11-12</b></div></div>
+<div class="card"><h2>風險聲明</h2><p class="disc">資料截止：價格 2026-11-12；評分 2026-11-12
+資料來源：yfinance（歷史 K 線）、孟德雷達評分
+本內容為市場資訊整理、技術分析說明與金融教育用途。
+非個別化投資建議，也不是買賣任何商品的建議或邀約。
+不保證獲利，過去走勢不代表未來表現。</p><p class="note">不構成投資建議。</p></div>
+<a class="btn" href="../stock.html">返回個股評分中心</a>
+    <footer class="footer">Version：V1.4 Stock Rating Center｜GitHub Pages｜Copyright：Mengde Radar</footer>
+  </div>
+</body>
+</html>
