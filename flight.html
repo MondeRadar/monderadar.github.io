@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>航空雷達｜MONDE RADAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="桃園出發飛日本、韓國、泰國：直飛來回與串票（反向票）每週比價，列出每段日期與購買順序。">
+  <style>
+    :root{--bg:#080d1c;--panel:#11182c;--panel2:#172033;--gold:#ffd166;--text:#f8fafc;--muted:#cbd5e1;--line:rgba(255,209,102,.18);
+      --card:#11182c;--ink:#f8fafc;--paper:#080d1c;--accent:#ffd166;--accent-ink:#111;--good:#4ade80;
+      --t1:#60a5fa;--t2:#f472b6;--t3:#34d399;--t4:#c084fc;
+      --mono:"Consolas","SFMono-Regular",Menlo,monospace;--body:"Microsoft JhengHei","Noto Sans TC",Arial,sans-serif;}
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:var(--body);background:radial-gradient(circle at top,#18213a 0,#080d1c 58%);color:var(--text);}
+    .wrap{max-width:1120px;margin:auto;padding:36px 20px 28px;}
+    .site-brand{text-align:center;margin-bottom:22px;}
+    .site-logo{width:clamp(120px,22vw,180px);height:auto;display:block;margin:0 auto 16px;}
+    .site-brand-title{margin:0;font-size:42px;letter-spacing:.08em;color:#fff;font-weight:900;}
+    .site-brand-name{margin:6px 0 0;color:var(--gold);font-size:20px;font-weight:800;letter-spacing:.12em;}
+    .site-brand-tagline{margin:8px 0 0;color:#dbeafe;font-size:18px;}
+    .nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 26px;}
+    .nav a{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#e5e7eb;text-decoration:none;font-weight:700;}
+    .nav a:hover,.nav a[aria-current="page"]{background:rgba(255,209,102,.18);color:var(--gold);}
+    .hero{padding:30px;border-radius:24px;background:linear-gradient(135deg,rgba(255,209,102,.18),rgba(56,189,248,.10));border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.28);margin:18px 0 24px;}
+    .hero h1{text-align:center;font-size:clamp(30px,5.5vw,46px);margin:6px 0;}
+    .hero p{font-size:17px;line-height:1.8;color:#e5e7eb;text-align:center;margin:4px 0;}
+    .section{max-width:860px;margin:0 auto;}
+    h2{color:var(--gold);font-size:22px;margin:30px 0 4px;}
+    .note{color:var(--muted);font-size:14px;}
+    h2 + .note{margin:0 0 12px;}
+    .dests{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;}
+    .dest{appearance:none;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:var(--text);border-radius:14px;padding:10px 10px 8px;cursor:pointer;text-align:left;font-family:var(--body);}
+    .dest .code{display:block;font-family:var(--mono);font-weight:700;font-size:20px;letter-spacing:.06em}
+    .dest .city{font-size:13px;color:var(--muted)}
+    .dest:hover{background:rgba(255,209,102,.12)}
+    .dest[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#111}
+    .dest[aria-pressed="true"] .city{color:#111}
+    .dest:focus-visible,.seg button:focus-visible,select:focus-visible{outline:3px solid #38bdf8;outline-offset:2px}
+    .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:20px 0 6px}
+    .seg{display:inline-flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.04)}
+    .seg button{appearance:none;border:0;background:transparent;color:var(--text);padding:9px 16px;font:700 14px var(--body);cursor:pointer}
+    .seg button[aria-pressed="true"]{background:var(--gold);color:#111}
+    .verdict{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-left:6px solid var(--gold);border-radius:18px;padding:18px 20px;margin:14px 0 22px}
+    .verdict .label{font-size:13px;color:var(--muted)}
+    .verdict .plan{font-weight:900;font-size:20px}
+    .verdict .big{font-family:var(--mono);font-weight:700;font-size:clamp(26px,5vw,34px);color:var(--gold);text-align:right}
+    .verdict .vs{grid-column:1/-1;font-size:14px;color:var(--muted)}
+    .pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;vertical-align:2px}
+    .pill.save{background:rgba(74,222,128,.15);color:var(--good)}
+    .pill.lose{background:rgba(203,213,225,.12);color:var(--muted)}
+    .pill.best{background:var(--gold);color:#111}
+    .planc{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:18px;margin:14px 0;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.24)}
+    .planc header{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;align-items:baseline;padding:16px 18px 10px}
+    .planc h3{margin:0;font-size:18px;color:#e0f2fe}
+    .planc .total{font-family:var(--mono);font-weight:700;font-size:22px;color:var(--gold)}
+    .planc .why{padding:0 18px 8px;font-size:14px;color:var(--muted);margin:0}
+    .legs{list-style:none;margin:0;padding:0;border-top:1px dashed rgba(255,255,255,.14)}
+    .leg{display:grid;grid-template-columns:86px 1fr auto;gap:10px;align-items:center;padding:10px 18px;border-bottom:1px dashed rgba(255,255,255,.14);position:relative}
+    .leg::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--tc)}
+    .leg .date{font-family:var(--mono);font-weight:700;font-size:15px}
+    .leg .date small{display:block;font-weight:400;font-size:12px;color:var(--muted);font-family:var(--body)}
+    .leg .route{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .leg .ap{font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.04em}
+    .leg .ap small{font-family:var(--body);font-weight:400;font-size:12px;color:var(--muted);margin-left:3px;letter-spacing:0}
+    .leg .arrow{color:var(--muted)}
+    .leg .stay{font-size:12px;color:var(--muted);width:100%}
+    .tk{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 9px;border-radius:999px;background:var(--tc);color:#0b1020;font-weight:800;font-size:13px;white-space:nowrap}
+    .tickets{padding:12px 18px 6px;display:grid;gap:8px}
+    .ticket{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:14px}
+    .ticket .price{font-family:var(--mono);font-weight:700;color:var(--gold)}
+    .ticket .air{color:var(--muted);font-size:13px}
+    .steps{margin:6px 18px 16px;padding:12px 14px 12px 34px;background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.16);border-radius:12px;font-size:14px;line-height:1.7}
+    .steps b{color:var(--gold)}
+    .pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 18px 10px;font-size:14px}
+    select{font:600 14px var(--body);padding:7px 10px;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:#0b1224;color:var(--text)}
+    .when{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .when .box{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:16px 18px}
+    .when .box h3{margin:0 0 4px;font-size:17px;color:var(--gold)}
+    .when .tag{font-family:var(--mono);font-size:12px;color:var(--muted)}
+    .when p{margin:6px 0 0;font-size:14px;line-height:1.7}
+    .foot{font-size:13px;color:var(--muted);margin-top:30px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px;line-height:1.7}
+    .foot p{margin:4px 0}
+    .footer{margin-top:34px;padding:22px;border-top:1px solid rgba(255,255,255,.1);color:var(--muted);text-align:center;font-size:14px;}
+    @media (max-width:760px){
+      .wrap{padding:24px 14px;}
+      .site-brand-title{font-size:34px;}
+      .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    }
+    @media (max-width:520px){
+      .leg{grid-template-columns:70px 1fr;}
+      .leg .tk{grid-column:2;justify-self:start}
+      .verdict{grid-template-columns:1fr}
+      .verdict .big{text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-brand">
+      <img class="site-logo" src="assets/logo.png" alt="MONDE RADAR Logo">
+      <div class="site-brand-title">孟德雷達</div>
+      <div class="site-brand-name">MONDE RADAR</div>
+      <p class="site-brand-tagline">掌握市場脈動</p>
+    </header>
+
+    <nav class="nav">
+      <a href="index.html">首頁</a>
+      <a href="today.html">台股</a>
+      <a href="us.html">美股</a>
+      <a href="daytrade.html">當沖</a>
+      <a href="futures_radar.html">期貨雷達</a>
+      <a href="stock.html">個股評分</a>
+      <a href="weekly.html">籌碼週報</a>
+      <a href="weekly_archive.html">歷史週報</a>
+      <a href="flight.html" aria-current="page">航空雷達</a>
+      <a href="premium.html">Premium</a>
+      <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+
+    <section class="hero">
+      <h1>✈️ 航空雷達</h1>
+      <p>選目的地，看直飛和串票哪個划算，每一段幾號飛、先買哪張票都列出來。</p>
+      <p class="note" id="hero-date">每週五更新</p>
+    </section>
+
+    <div class="section">
+      <h2>要去哪裡？</h2>
+      <p class="note">桃園出發・一年飛 2 趟的比價</p>
+      <div class="dests" id="dests" role="group" aria-label="選擇目的地"></div>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="航空類型">
+      <button type="button" id="cab-low" data-cab="low" aria-pressed="true">廉航</button>
+      <button type="button" id="cab-fsc" data-cab="fsc" aria-pressed="false">全服務（含托運行李）</button>
+    </div>
+    <span class="note">廉航只和廉航比，全服務只和全服務比。</span>
+  </div>
+
+  <div class="verdict" id="verdict" aria-live="polite"></div>
+
+  <h2 id="plans-title">兩趟怎麼買</h2>
+  <p class="note" id="trips-note">票價載入中…</p>
+  <div id="plans"></div>
+
+  <section id="cross-sec">
+  <h2>三趟：中間再加一個城市（跨城串票）</h2>
+  <p class="note">把「當地出發的反向票」夾住另一趟旅行，例如 東京→台北、台北→沖繩、沖繩→台北、台北→東京。</p>
+  <div id="cross"></div>
+  </section>
+
+  <h2>什麼時候買</h2>
+  <div class="when" id="when"></div>
+
+  <div class="foot">
+    <p id="src-note">票價載入中…</p>
+    <p>串票每張票都要照順序飛，漏飛前段，後段會被取消；當地出發的票要確認最長停留天數涵蓋兩趟之間。外站票價為「香港經台北轉機」的估算，在台北停留可能加價。票價隨時變動，下單前請以航空公司官網為準。</p>
+  </div>
+
+    </div>
+
+    <footer class="footer">
+      <div>航空雷達・每週五更新</div>
+      <div>GitHub Pages｜Copyright：Mengde Radar</div>
+    </footer>
+  </div>
+  <script src="flight_data.js"></script>
+  <script>
+const AIR={"China Airlines":"華航","EVA Air":"長榮","STARLUX Airlines":"星宇","Cathay Pacific":"國泰","Scoot":"酷航","Tigerair Taiwan":"台灣虎航","Jetstar":"捷星","Peach Aviation":"樂桃","Thai Lion Air":"泰國獅航","Thai AirAsia":"泰國亞航","Thai Vietjet Air":"泰越捷","Hong Kong Express":"香港快運","AirAsia":"亞洲航空"};
+let Q={},HKG=null,DATA=null;
+const ORDER=["TYO","KIX","FUK","OKA","CTS","SEL","PUS","BKK"];
+const SLUG={TYO:"tokyo",KIX:"osaka",FUK:"fukuoka",OKA:"okinawa",CTS:"sapporo",SEL:"seoul",PUS:"busan",BKK:"bangkok"};
+const TCOL=["var(--t1)","var(--t2)","var(--t3)","var(--t4)"];
+const NUM=["①","②","③","④"];
+const WD="日一二三四五六";
+
+let state={dest:"TYO",cab:"low",y:null};
+
+const fmt=n=>"NT$"+n.toLocaleString("en-US");
+const price=(q,c)=>c==="low"?q[0]:q[2];
+const air=(q,c)=>{const a=c==="low"?q[1]:q[3];return AIR[a]||a};
+function iso(s,add){const t=new Date(s+"T00:00:00Z");if(add)t.setUTCDate(t.getUTCDate()+add);return t.toISOString().slice(0,10)}
+function md(s){const t=new Date(s+"T00:00:00Z");return (t.getUTCMonth()+1)+"/"+t.getUTCDate()}
+function d(s){const t=new Date(s+"T00:00:00Z");return {md:md(s),wd:WD[t.getUTCDay()]}}
+function days(a,b){return Math.round((new Date(b+"T00:00:00Z")-new Date(a+"T00:00:00Z"))/864e5)}
+function el(tag,attrs,...kids){const e=document.createElement(tag);for(const k in (attrs||{})){if(k==="class")e.className=attrs[k];else if(k==="style")e.style.cssText=attrs[k];else e.setAttribute(k,attrs[k])}for(const k of kids){if(k==null)continue;e.append(k.nodeType?k:document.createTextNode(k))}return e}
+
+function ap(code,name){return el("span",{class:"ap"},code,el("small",null,name))}
+function legRow(leg){
+  const dt=d(leg.date);
+  const li=el("li",{class:"leg",style:`--tc:${TCOL[leg.t]}`});
+  li.append(el("div",{class:"date"},dt.md,el("small",null,"週"+dt.wd)));
+  const r=el("div",{class:"route"},ap(leg.from[0],leg.from[1]),el("span",{class:"arrow","aria-hidden":"true"},"→"),ap(leg.to[0],leg.to[1]));
+  if(leg.note) r.append(el("span",{class:"stay"},leg.note));
+  li.append(r);
+  li.append(el("span",{class:"tk",style:`--tc:${TCOL[leg.t]}`,"aria-label":"第"+(leg.t+1)+"張票"},"票"+NUM[leg.t]));
+  return li;
+}
+function ticketList(tks){
+  const box=el("div",{class:"tickets"});
+  tks.forEach((t,i)=>box.append(el("div",{class:"ticket"},
+    el("span",{class:"tk",style:`--tc:${TCOL[i]}`},"票"+NUM[i]),
+    el("span",null,t.label+" ",el("span",{class:"air"},t.air)),
+    el("span",{class:"price"},fmt(t.p)))));
+  return box;
+}
+function stepsList(steps){const ol=el("ol",{class:"steps"});steps.forEach(s=>{const li=el("li");li.innerHTML=s;ol.append(li)});return ol}
+
+function plansFor(code,cab){
+  const a1=DATA.trip1[0],a2=DATA.trip1[1],b1=DATA.trip2[0],b2=DATA.trip2[1],m1=DATA.mid[0],m2=DATA.mid[1],h1=DATA.hkg[0],h2=DATA.hkg[1],h1b=iso(a1,-1),h2b=iso(DATA.hkg[1],-1);
+  const x=Q[code],X=[code,x.name],T=["TPE","台北"],H=["HKG","香港"];
+  const P=[];
+  P.push({id:"direct",name:"直飛來回 ×2",why:"最單純：兩趟各買一張台灣出發的來回票。",
+    total:price(x.A,cab)+price(x.B,cab),
+    tickets:[{label:`台北⇄${x.name} 來回（第1趟）`,air:air(x.A,cab),p:price(x.A,cab)},{label:`台北⇄${x.name} 來回（第2趟）`,air:air(x.B,cab),p:price(x.B,cab)}],
+    legs:[{date:a1,from:T,to:X,t:0},{date:a2,from:X,to:T,t:0},{date:b1,from:T,to:X,t:1},{date:b2,from:X,to:T,t:1}],
+    steps:[`<b>現在</b>先買票①：${md(a1)} 去、${md(a2)} 回`,`票②（${md(b1)} 去、${md(b2)} 回）可以一起買，或每週看雷達等降價`]});
+  P.push({id:"chain",name:"同城串票（反向票）",why:`一張台灣出發的長停留來回，加一張${x.name}出發的反向票，兩張交錯著飛。`,
+    total:price(x.C,cab)+price(x.D,cab),
+    tickets:[{label:`台北⇄${x.name} 長停留來回`,air:air(x.D,cab),p:price(x.D,cab)},{label:`${x.name}⇄台北 反向票（當地出發）`,air:air(x.C,cab),p:price(x.C,cab)}],
+    legs:[{date:a1,from:T,to:X,t:0},{date:a2,from:X,to:T,t:1},{date:b1,from:T,to:X,t:1},{date:b2,from:X,to:T,t:0}],
+    steps:[`<b>先買</b>票①（台灣出發）：${md(a1)} 台北→${x.name}、${md(b2)} ${x.name}→台北`,`<b>同一天</b>再買票②（${x.name}出發）：${md(a2)} ${x.name}→台北、${md(b1)} 台北→${x.name}`,`買票②前確認最長停留天數涵蓋 ${md(a2)}–${md(b1)}`+(cab==="fsc"?"，兩張最好同一家航空":"")]});
+  if(cab==="fsc"){
+    P.push({id:"out",name:"外站四段票（香港出發）",why:"從香港開票、在台北停留，順便多一趟香港。票價為估算。",
+      total:price(x.O,cab)+price(HKG,cab)+price(x.B,cab),
+      tickets:[{label:"台北⇄香港 接駁來回",air:air(HKG,cab),p:price(HKG,cab)},{label:`香港⇄${x.name} 外站票（經台北停留）`,air:air(x.O,cab),p:price(x.O,cab)},{label:`台北⇄${x.name} 來回（第2趟）`,air:air(x.B,cab),p:price(x.B,cab)}],
+      legs:[{date:h1,from:T,to:H,t:0},{date:h1b,from:H,to:T,t:1,note:"在台灣停留"},{date:a1,from:T,to:X,t:1},{date:a2,from:X,to:T,t:1,note:"在台灣停留"},{date:b1,from:T,to:X,t:2},{date:b2,from:X,to:T,t:2},{date:h2b,from:T,to:H,t:1},{date:h2,from:H,to:T,t:0}],
+      steps:[`先買票①：${md(h1)} 台北→香港、${md(h2)} 香港→台北`,`在華航／長榮官網用「多個城市」開票②：香港→台北(${md(h1b)})、台北→${x.name}(${md(a1)})、${x.name}→台北(${md(a2)})、台北→香港(${md(h2b)})`,`票③：${md(b1)} 去、${md(b2)} 回`]});
+  }
+  return P;
+}
+
+function renderDests(){
+  const box=document.getElementById("dests");box.replaceChildren();
+  ORDER.forEach(c=>{
+    const b=el("button",{type:"button",class:"dest",id:"d-"+SLUG[c],"aria-pressed":String(c===state.dest)},el("span",{class:"code"},c),el("span",{class:"city"},Q[c].name+"・"+Q[c].country));
+    b.addEventListener("click",()=>{state.dest=c;state.y=null;try{history.replaceState(null,"","#"+SLUG[c])}catch(e){location.hash=SLUG[c]}render()});
+    box.append(b);
+  });
+}
+
+function render(){
+  renderDests();
+  document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.cab===state.cab)));
+  const c=state.dest,x=Q[c],cab=state.cab,cabName=cab==="low"?"廉航":"全服務";
+  const all=plansFor(c,cab);
+  const base=all[0].total;
+  // 只列出比直飛來回×2 更便宜的組合；都沒有比較便宜就只列直飛
+  const cheaper=all.filter(p=>p.id!=="direct"&&p.total<base);
+  state.two=cheaper.length>0;
+  const a1=DATA.trip1[0],a2=DATA.trip1[1],T=["TPE","台北"],X=[c,x.name];
+  const single={id:"single",name:"直飛來回（一趟）",why:"兩趟一起買沒有比較便宜，這次就去一趟，買一張台灣出發的來回票。",
+    total:price(x.A,cab),
+    tickets:[{label:`台北⇄${x.name} 來回`,air:air(x.A,cab),p:price(x.A,cab)}],
+    legs:[{date:a1,from:T,to:X,t:0},{date:a2,from:X,to:T,t:0}],
+    steps:[`買票①：${md(a1)} 台北→${x.name}、${md(a2)} ${x.name}→台北`]};
+  const plans=state.two?all.filter(p=>p.id==="direct"||p.total<base):[single];
+  const best=plans.reduce((a,b)=>b.total<a.total?b:a);
+  // verdict
+  const v=document.getElementById("verdict");v.replaceChildren();
+  const diff=base-best.total;
+  v.append(el("div",null,el("div",{class:"label"},`去${x.name}・${cabName}・${state.two?"兩趟最省買法":"最省買法"}`),el("div",{class:"plan"},best.name)),
+           el("div",{class:"big"},fmt(best.total)),
+           el("div",{class:"vs"},best.id==="single"?`這週一次買兩趟沒有比較便宜，去一趟就好。`:`比直飛來回 ×2（${fmt(base)}）省 ${fmt(diff)}。`));
+  document.getElementById("plans-title").textContent=`${state.two?"兩趟":""}去${x.name}怎麼買（${cabName}）`;
+  // plans
+  const box=document.getElementById("plans");box.replaceChildren();
+  plans.slice().sort((a,b)=>a.total-b.total).forEach(p=>{
+    const card=el("article",{class:"planc",id:"plan-"+p.id});
+    const d0=p.total-base;
+    const tag=p.id==="single"?null:p===best?el("span",{class:"pill best"},"最省"):(d0>0?el("span",{class:"pill lose"},`比直飛多 ${fmt(d0)}`):(d0<0?el("span",{class:"pill save"},`省 ${fmt(-d0)}`):null));
+    card.append(el("header",null,el("h3",null,p.name," ",tag),el("span",{class:"total"},fmt(p.total))));
+    card.append(el("p",{class:"why"},p.why));
+    const ul=el("ol",{class:"legs","aria-label":"依飛行順序的航段"});p.legs.forEach(l=>ul.append(legRow(l)));card.append(ul);
+    card.append(ticketList(p.tickets));
+    card.append(stepsList(p.steps));
+    box.append(card);
+  });
+  renderCross();
+  renderWhen();
+}
+
+function renderCross(){
+  const a1=DATA.trip1[0],a2=DATA.trip1[1],b1=DATA.trip2[0],b2=DATA.trip2[1],m1=DATA.mid[0],m2=DATA.mid[1],h1=DATA.hkg[0],h2=DATA.hkg[1],h1b=iso(a1,-1),h2b=iso(DATA.hkg[1],-1);
+  const c=state.dest,x=Q[c],cab=state.cab,X=[c,x.name],T=["TPE","台北"];
+  const others=ORDER.filter(o=>o!==c);
+  if(!state.y||state.y===c) state.y=others.reduce((a,b)=>price(Q[b].M,cab)<price(Q[a].M,cab)?b:a);
+  const y=Q[state.y],Y=[state.y,y.name];
+  const box=document.getElementById("cross");box.replaceChildren();
+  const card=el("article",{class:"planc",id:"plan-cross"});
+  const chain=price(x.D,cab)+price(x.C,cab)+price(y.M,cab);
+  const sep=price(x.A,cab)+price(x.B,cab)+price(y.M,cab);
+  const d0=sep-chain;
+  const sec=document.getElementById("cross-sec");
+  if(d0<=0){sec.hidden=true;return}
+  sec.hidden=false;
+  card.append(el("header",null,el("h3",null,`${x.name} ＋ ${y.name} ＋ ${x.name}`," ",d0>0?el("span",{class:"pill save"},`比分開買省 ${fmt(d0)}`):el("span",{class:"pill lose"},`比分開買多 ${fmt(-d0)}`)),el("span",{class:"total"},fmt(chain))));
+  const sel=el("select",{id:"pick-y","aria-label":"中間那趟的城市"});
+  others.forEach(o=>{const op=el("option",{value:o},`${Q[o].name}（來回 ${fmt(price(Q[o].M,cab))}）`);if(o===state.y)op.selected=true;sel.append(op)});
+  sel.addEventListener("change",()=>{state.y=sel.value;renderCross()});
+  card.append(el("div",{class:"pick"},el("label",{for:"pick-y"},"中間那趟去："),sel));
+  card.append(el("p",{class:"why"},`分開買（直飛 ${x.name}×2 ＋ ${y.name}來回）合計 ${fmt(sep)}。`));
+  const legs=[{date:a1,from:T,to:X,t:0},{date:a2,from:X,to:T,t:1},{date:m1,from:T,to:Y,t:2},{date:m2,from:Y,to:T,t:2},{date:b1,from:T,to:X,t:1},{date:b2,from:X,to:T,t:0}];
+  const ul=el("ol",{class:"legs","aria-label":"依飛行順序的航段"});legs.forEach(l=>ul.append(legRow(l)));card.append(ul);
+  card.append(ticketList([{label:`台北⇄${x.name} 長停留來回`,air:air(x.D,cab),p:price(x.D,cab)},{label:`${x.name}⇄台北 反向票（當地出發）`,air:air(x.C,cab),p:price(x.C,cab)},{label:`台北⇄${y.name} 來回`,air:air(y.M,cab),p:price(y.M,cab)}]));
+  card.append(stepsList([`<b>先買</b>票①：${md(a1)} 台北→${x.name}、${md(b2)} ${x.name}→台北`,`<b>同一天</b>買票②：${md(a2)} ${x.name}→台北、${md(b1)} 台北→${x.name}`,`票③（${md(m1)}–${md(m2)} ${y.name}）不綁其他票，可以晚點等便宜再買`]));
+  box.append(card);
+}
+
+function renderWhen(){
+  const box=document.getElementById("when");box.replaceChildren();
+  const now=DATA.asof,a1=DATA.trip1[0],b1=DATA.trip2[0],m1=DATA.mid[0];
+  const left=n=>n>=60?`剩約 ${Math.round(n/30.4*2)/2} 個月`:`剩約 ${Math.max(1,Math.round(n/7))} 週`;
+  function advice(n,tied){
+    if(n<=70) return ["現在就買","已進入出發前 2 個多月，便宜的位子會越賣越少，價格通常只升不降。"];
+    if(n<=190) return [tied?"未來 4–6 週內買":"出發前 2–3 個月買", tied?"出發前 3–6 個月通常最便宜，現在正在這段時間。串票的兩張要同一天買；直飛可以看每週雷達再決定。":"不綁其他票，可以看每週雷達，等便宜再買。"];
+    return ["先觀望","離出發還超過半年，通常出發前 3–6 個月再買比較便宜，先看每週雷達。"];
+  }
+  (state.two?[[`第 1 趟 · ${md(a1)} 出發`,days(now,a1),true],[`第 2 趟 · ${md(b1)} 出發`,days(now,b1),true],[`中間那趟 · ${md(m1)} 出發`,days(now,m1),false]]:[[`${md(a1)} 出發`,days(now,a1),false]]).forEach(([t,n,tied])=>{
+    const [h,p]=advice(n,tied);
+    box.append(el("div",{class:"box"},el("div",{class:"tag"},t+" · "+left(n)),el("h3",null,h),el("p",null,p)));
+  });
+}
+
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{state.cab=b.dataset.cab;if(DATA)render()}));
+function fromHash(){const h=(location.hash||"").slice(1);const f=Object.keys(SLUG).find(k=>SLUG[k]===h);if(f){state.dest=f;state.y=null}}
+window.addEventListener("hashchange",()=>{if(!DATA)return;fromHash();render()});
+function applyData(j){DATA=j;Q=j.Q;HKG=j.HKG;
+  document.getElementById("trips-note").textContent=`第 1 趟 ${md(j.trip1[0])}–${md(j.trip1[1])}、第 2 趟 ${md(j.trip2[0])}–${md(j.trip2[1])}（${j.trip2[1].slice(0,4)} 年）。色塊相同的航段是同一張票。`;
+  document.getElementById("src-note").textContent=`票價：Google 航班，${j.asof_label} 查詢，新台幣、1 位成人、經濟艙來回含稅。中間那趟為 ${j.mid[0].replaceAll("-","/")}–${md(j.mid[1])}。廉航價不含托運行李。每週五自動更新。`;
+  document.getElementById("hero-date").textContent=`最新票價：${j.asof_label}・每週五更新`;fromHash();render();}
+if(window.FLIGHT_DATA){applyData(window.FLIGHT_DATA)}else{document.getElementById("verdict").textContent="票價資料載入失敗，請重新整理頁面。"}
+</script>
+</body>
+</html>

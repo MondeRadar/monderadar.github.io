@@ -74,19 +74,60 @@
       <a href="stock.html">個股評分</a>
       <a href="weekly.html">籌碼週報</a>
       <a href="weekly_archive.html">歷史週報</a>
+      <a href="flight.html">航空雷達</a>
       <a href="premium.html">Premium</a>
       <a href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">Telegram</a>
     </nav>
     
+    <style>
+      .home-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start;}
+      .home-main{min-width:0;}
+      .home-main > .hero{margin-top:0;}
+      .home-main .grid-4{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .home-main .quick-actions{grid-template-columns:repeat(3,minmax(0,1fr));}
+      .flight-corner{position:sticky;top:20px;overflow:hidden;border-radius:24px;padding:26px 22px 24px;
+        background:linear-gradient(180deg,#bfe3ff 0%,#dcf0ff 55%,#f2f9ff 100%);border:1px solid #a7d4f7;
+        box-shadow:0 14px 40px rgba(14,90,160,.25);color:#123b63;}
+      .flight-corner .fc-body{position:relative;z-index:1;}
+      .flight-corner .fc-cloud{position:absolute;fill:#fff;opacity:.92;z-index:0;filter:drop-shadow(0 4px 6px rgba(70,130,190,.18));}
+      .flight-corner .c1{width:120px;top:10px;right:-18px;}
+      .flight-corner .c2{width:78px;top:118px;left:-14px;opacity:.75;}
+      .flight-corner .c3{width:96px;bottom:70px;right:-26px;opacity:.8;}
+      .flight-corner .c4{width:64px;bottom:-6px;left:24px;opacity:.7;}
+      .flight-corner .fc-tag{display:inline-block;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.75);color:#1d6fb8;font-weight:800;font-size:14px;}
+      .flight-corner h2{color:#0f3d6b;font-size:22px;line-height:1.45;margin:12px 0 8px;}
+      .flight-corner .fc-text{margin:0 0 14px;color:#2b5a85;line-height:1.7;font-size:15px;}
+      .flight-corner .fc-deals{list-style:none;padding:0;margin:0 0 8px;display:grid;gap:8px;}
+      .flight-corner .fc-deals li{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.82);font-weight:700;}
+      .flight-corner .fc-city{color:#1f4f7d;}
+      .flight-corner .fc-price{color:#e2621b;white-space:nowrap;}
+      .flight-corner .fc-empty{color:#2b5a85;font-weight:600;}
+      .flight-corner .fc-asof{margin:0 0 14px;font-size:12px;color:#4a7398;min-height:1em;}
+      .flight-corner .fc-btn{display:block;text-align:center;padding:12px 18px;border-radius:999px;background:#2b8be6;color:#fff;text-decoration:none;font-weight:800;}
+      .flight-corner .fc-btn:hover{background:#1c74c9;}
+      @media (max-width:980px){
+        .home-layout{grid-template-columns:1fr;gap:0;}
+        .flight-corner{position:relative;top:0;margin:20px 0;}
+        .home-main .grid-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+        .home-main .quick-actions{grid-template-columns:repeat(4,minmax(0,1fr));}
+      }
+      @media (max-width:760px){
+        .home-main .grid-4,.home-main .quick-actions{grid-template-columns:1fr;}
+        .flight-corner{padding:22px 18px 20px;}
+        .flight-corner h2{font-size:20px;}
+      }
+    </style>
+    <div class="home-layout">
+      <div class="home-main">
     <section class="hero">
       <h1>孟德雷達</h1>
       <p>掌握市場脈動</p>
-      <p class="note">最新更新：2026/11/20 22:03</p>
+      <p class="note">最新更新：2026/11/21 06:25</p>
     </section>
 
     <div class="grid-4">
       <div class="mini-card"><div class="label">市場溫度</div><div class="value">37 分</div></div>
-      <a class="mini-card" href="#today-events"><div class="label">今日重點</div><div class="value">6 項事件</div></a>
+      <a class="mini-card" href="#today-events"><div class="label">今日重點</div><div class="value">0 項事件</div></a>
       <div class="mini-card"><div class="label">最新日期</div><div class="value">2026/11/20</div></div>
       <div class="mini-card"><div class="label">版本資訊</div><div class="value">V1.1 Stable</div></div>
     </div>
@@ -95,7 +136,7 @@
     <div class="card" id="today-events">
       <h2>今日重點事件</h2>
       <p class="note">台灣時間・資料來源：美股經濟行事曆</p>
-      <ul><li><strong>21:30</strong>｜美國續領失業救濟金人數（重要性：低）</li><li><strong>21:30</strong>｜美國初領失業救濟金人數（重要性：中）</li><li><strong>21:30</strong>｜美國初領失業金四週平均（重要性：低）</li><li><strong>21:30</strong>｜美國區域聯準銀行調查（重要性：低）</li><li><strong>21:30</strong>｜美國經濟事件：Philly Fed Business Conditions（重要性：低）</li><li><strong>21:30</strong>｜美國經濟事件：Philly Fed CAPEX Index（重要性：低）</li></ul>
+      <ul><li>今日無重大美國經濟數據或財報事件。</li></ul>
     </div>
 
     <div class="card">
@@ -147,7 +188,7 @@
       <div class="metric"><span>外資</span><span>-95.11 億元</span></div>
       <div class="metric"><span>十大交易人</span><span>-794口</span></div>
       <div class="metric"><span>Put/Call Ratio</span><span>30.05%</span></div>
-      <div class="metric"><span>夜盤</span><span>道瓊指數 -2.19%；S&amp;P 500 -2.02%；那斯達克指數 -2.25%；費城半導體指數 -2.41%</span></div>
+      <div class="metric"><span>夜盤</span><span>道瓊指數 -1.93%；S&amp;P 500 -3.70%；那斯達克指數 -5.28%；費城半導體指數 -10.73%</span></div>
     </div>
 
     <div class="card">
@@ -164,7 +205,7 @@
       <h2>最新更新</h2>
       <div class="update-list">
         <div class="update-item">台股<strong>2026/11/20</strong></div>
-        <div class="update-item">美股（11/19 收盤）<strong>2026/11/20</strong></div>
+        <div class="update-item">美股（11/20 收盤）<strong>2026/11/21</strong></div>
         <div class="update-item">當沖<strong>2026/11/20</strong></div>
         <div class="update-item">週報<strong>2026/11/13</strong></div>
       </div>
@@ -187,10 +228,56 @@
       <a class="btn" href="https://t.me/monde_stock" target="_blank" rel="noopener noreferrer">前往 Telegram 頻道</a>
     </div>
     
-    
+    </div>
+      
+    <aside class="flight-corner" aria-labelledby="flight-corner-title">
+      <svg class="fc-cloud c1" viewBox="0 0 120 50" aria-hidden="true" focusable="false"><path d="M22 46h80a16 16 0 0 0 0-32 22 22 0 0 0-41-6 17 17 0 0 0-28 10A14 14 0 0 0 22 46z"/></svg><svg class="fc-cloud c2" viewBox="0 0 120 50" aria-hidden="true" focusable="false"><path d="M22 46h80a16 16 0 0 0 0-32 22 22 0 0 0-41-6 17 17 0 0 0-28 10A14 14 0 0 0 22 46z"/></svg><svg class="fc-cloud c3" viewBox="0 0 120 50" aria-hidden="true" focusable="false"><path d="M22 46h80a16 16 0 0 0 0-32 22 22 0 0 0-41-6 17 17 0 0 0-28 10A14 14 0 0 0 22 46z"/></svg><svg class="fc-cloud c4" viewBox="0 0 120 50" aria-hidden="true" focusable="false"><path d="M22 46h80a16 16 0 0 0 0-32 22 22 0 0 0-41-6 17 17 0 0 0-28 10A14 14 0 0 0 22 46z"/></svg>
+      <div class="fc-body">
+        <div class="fc-tag">✈️ 航空雷達</div>
+        <h2 id="flight-corner-title">如果看盤累了，來看看有沒有便宜航班吧</h2>
+        <p class="fc-text">桃園出發飛日本、韓國、泰國，每週比價直飛來回與串票。</p>
+        <ul class="fc-deals" id="fc-deals"><li class="fc-empty">打開航空雷達看本週最低價</li></ul>
+        <p class="fc-asof" id="fc-asof"></p>
+        <a class="fc-btn" href="flight.html">去看便宜航班 →</a>
+      </div>
+    </aside>
+    <script src="flight_data.js" defer></script>
+    <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      var d = window.FLIGHT_DATA;
+      if (!d || !d.Q) return;
+      var rows = Object.keys(d.Q).map(function (k) {
+        var x = d.Q[k];
+        return {code: k, name: x.name, price: x.A && x.A[0], air: x.A && x.A[1]};
+      }).filter(function (r) { return typeof r.price === "number"; })
+        .sort(function (a, b) { return a.price - b.price; }).slice(0, 3);
+      if (!rows.length) return;
+      var ul = document.getElementById("fc-deals");
+      ul.textContent = "";
+      rows.forEach(function (r) {
+        var li = document.createElement("li");
+        var city = document.createElement("span");
+        city.className = "fc-city";
+        city.textContent = r.name + " " + r.code;
+        var price = document.createElement("span");
+        price.className = "fc-price";
+        price.textContent = "NT$" + r.price.toLocaleString("en-US") + " 起";
+        li.appendChild(city);
+        li.appendChild(price);
+        li.title = r.air || "";
+        ul.appendChild(li);
+      });
+      var t = d.trip1 || [];
+      var note = "來回含稅最低價";
+      if (t.length === 2) note += "（" + t[0].slice(5).replace("-", "/") + "–" + t[1].slice(5).replace("-", "/") + "）";
+      if (d.asof_label) note += "・查價 " + d.asof_label;
+      document.getElementById("fc-asof").textContent = note;
+    });
+    </script>
+    </div>
     <footer class="footer">
       <div>Version：V1.1 Stable</div>
-      <div>Last Update：2026/11/20</div>
+      <div>Last Update：2026/11/21</div>
       <div>GitHub Pages｜Copyright：Mengde Radar</div>
     </footer>
   </div>
