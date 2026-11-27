@@ -120,7 +120,7 @@
     <section class="hero">
       <h1>✈️ 航空雷達</h1>
       <p>選目的地，看直飛和串票哪個划算，每一段幾號飛、先買哪張票都列出來。</p>
-      <p class="note" id="hero-date">每週五更新</p>
+      <p class="note" id="hero-date">每週一、三、五更新</p>
     </section>
 
     <div class="section">
@@ -142,6 +142,12 @@
   <p class="note" id="trips-note">票價載入中…</p>
   <div id="plans"></div>
 
+  <section id="oj-sec" hidden>
+  <h2>開口票：去一個城市、從另一個城市回</h2>
+  <p class="note" id="oj-note"></p>
+  <div id="oj"></div>
+  </section>
+
   <section id="cross-sec">
   <h2>三趟：中間再加一個城市（跨城串票）</h2>
   <p class="note">把「當地出發的反向票」夾住另一趟旅行，例如 東京→台北、台北→沖繩、沖繩→台北、台北→東京。</p>
@@ -159,7 +165,7 @@
     </div>
 
     <footer class="footer">
-      <div>航空雷達・每週五更新</div>
+      <div>航空雷達・每週一、三、五更新</div>
       <div>GitHub Pages｜Copyright：Mengde Radar</div>
     </footer>
   </div>
@@ -275,8 +281,43 @@ function render(){
     card.append(stepsList(p.steps));
     box.append(card);
   });
+  renderOpenJaw();
   renderCross();
   renderWhen();
+}
+
+// 開口票：第1趟去 X、第2趟去 Y（日本城市），拆成兩張多城市票交錯著飛。
+// 資料 DATA.OJ = {"XYD":[最低,航空,全服務,航空], "XYC":[...]}；D=票①(台北→X＋Y→台北)，C=票②(X→台北＋台北→Y)
+const OJCITY=["TYO","KIX","FUK","OKA","CTS"];
+function renderOpenJaw(){
+  const sec=document.getElementById("oj-sec"),box=document.getElementById("oj");box.replaceChildren();
+  const c=state.dest,cab=state.cab,OJ=DATA.OJ||{};
+  if(!OJCITY.includes(c)){sec.hidden=true;return}
+  const a1=DATA.trip1[0],a2=DATA.trip1[1],b1=DATA.trip2[0],b2=DATA.trip2[1],T=["TPE","台北"];
+  const ok=q=>Array.isArray(q)&&typeof price(q,cab)==="number";
+  const deals=[];
+  OJCITY.forEach(x=>OJCITY.forEach(y=>{
+    if(x===y||(x!==c&&y!==c))return;
+    const d1=OJ[x+y+"D"],d2=OJ[x+y+"C"];
+    if(!ok(d1)||!ok(d2)||!Q[x]||!Q[y])return;
+    const total=price(d1,cab)+price(d2,cab),base=price(Q[x].A,cab)+price(Q[y].B,cab);
+    if(total<base)deals.push({x,y,d1,d2,total,base});
+  }));
+  if(!deals.length){sec.hidden=true;return}
+  sec.hidden=false;
+  deals.sort((p,q)=>(q.base-q.total)/q.base-(p.base-p.total)/p.base);
+  document.getElementById("oj-note").textContent=`和${Q[c].name}有關、比直飛來回 ×2 便宜的組合（${cab==="low"?"廉航":"全服務"}），依省下比例排序。`;
+  deals.slice(0,3).forEach((p,i)=>{
+    const x=Q[p.x],y=Q[p.y],X=[p.x,x.name],Y=[p.y,y.name],save=p.base-p.total;
+    const card=el("article",{class:"planc",id:"plan-oj-"+p.x+p.y});
+    card.append(el("header",null,el("h3",null,`第1趟${x.name}、第2趟${y.name}`," ",el("span",{class:i===0?"pill best":"pill save"},`省 ${fmt(save)}（${Math.round(save/p.base*1000)/10}%）`)),el("span",{class:"total"},fmt(p.total))));
+    card.append(el("p",{class:"why"},`分開買直飛（台北⇄${x.name} ＋ 台北⇄${y.name}）合計 ${fmt(p.base)}。兩張多城市票交錯著飛。`));
+    const legs=[{date:a1,from:T,to:X,t:0},{date:a2,from:X,to:T,t:1},{date:b1,from:T,to:Y,t:1},{date:b2,from:Y,to:T,t:0}];
+    const ul=el("ol",{class:"legs","aria-label":"依飛行順序的航段"});legs.forEach(l=>ul.append(legRow(l)));card.append(ul);
+    card.append(ticketList([{label:`${md(a1)} 台北→${x.name}＋${md(b2)} ${y.name}→台北`,air:air(p.d1,cab),p:price(p.d1,cab)},{label:`${md(a2)} ${x.name}→台北＋${md(b1)} 台北→${y.name}`,air:air(p.d2,cab),p:price(p.d2,cab)}]));
+    card.append(stepsList([`在航空公司官網用「多個城市」開票①：${md(a1)} 台北→${x.name}、${md(b2)} ${y.name}→台北`,`<b>同一天</b>再開票②：${md(a2)} ${x.name}→台北、${md(b1)} 台北→${y.name}`,`表上的航空是每張票第一段的航空，下單前確認第二段是哪家`]));
+    box.append(card);
+  });
 }
 
 function renderCross(){
@@ -326,8 +367,8 @@ function fromHash(){const h=(location.hash||"").slice(1);const f=Object.keys(SLU
 window.addEventListener("hashchange",()=>{if(!DATA)return;fromHash();render()});
 function applyData(j){DATA=j;Q=j.Q;HKG=j.HKG;
   document.getElementById("trips-note").textContent=`第 1 趟 ${md(j.trip1[0])}–${md(j.trip1[1])}、第 2 趟 ${md(j.trip2[0])}–${md(j.trip2[1])}（${j.trip2[1].slice(0,4)} 年）。色塊相同的航段是同一張票。`;
-  document.getElementById("src-note").textContent=`票價：Google 航班，${j.asof_label} 查詢，新台幣、1 位成人、經濟艙來回含稅。中間那趟為 ${j.mid[0].replaceAll("-","/")}–${md(j.mid[1])}。廉航價不含托運行李。每週五自動更新。`;
-  document.getElementById("hero-date").textContent=`最新票價：${j.asof_label}・每週五更新`;fromHash();render();}
+  document.getElementById("src-note").textContent=`票價：Google 航班，${j.asof_label} 查詢，新台幣、1 位成人、經濟艙來回含稅。中間那趟為 ${j.mid[0].replaceAll("-","/")}–${md(j.mid[1])}。廉航價不含托運行李。每週一、三、五自動更新。`;
+  document.getElementById("hero-date").textContent=`最新票價：${j.asof_label}・每週一、三、五更新`;fromHash();render();}
 if(window.FLIGHT_DATA){applyData(window.FLIGHT_DATA)}else{document.getElementById("verdict").textContent="票價資料載入失敗，請重新整理頁面。"}
 </script>
 </body>
